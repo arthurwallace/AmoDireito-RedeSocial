@@ -54,7 +54,7 @@
 	<string name = "Lbl_Register"> Registro </string>
 	<string name = "Lbl_Empty"> Vazio </string>
 	<string name = "Lbl_Loading"> Carregando </string>
-	<string name = "Lbl_Comment"> Comentário </string>
+	<string name = "Lbl_Comment"> Comentar </string>
 	<string name = "Lbl_Videos"> Vídeos </string>
 	<string name = "Lbl_Views"> Visualizações </string>
 	<string name = "Lbl_aboutMe"> Sobre mim </string>
