@@ -22,9 +22,9 @@ namespace WoWonder
         // Friend system = 0 , follow system = 1
         public static int ConnectivitySystem = 0;
 
-        public static PostButtonSystem PostButton = PostButtonSystem.Reaction;
-        public static bool ShowTextShareButton = false;
-        public static bool ShowShareButton = true; //#New
+        public static PostButtonSystem PostButton = PostButtonSystem.ReactionDefault; //#New
+        public static bool ShowTextShareButton = true;
+        public static bool ShowShareButton = true; 
 
         //Main Colors >>
         //*********************************************************
@@ -43,8 +43,8 @@ namespace WoWonder
 
         // WalkThrough Settings >>
         //*********************************************************
-        public static bool ShowWalkTroutPage = false;
-        public static bool WalkThroughSetFlowAnimation = false;
+        public static bool ShowWalkTroutPage = true;
+        public static bool WalkThroughSetFlowAnimation = true;
         public static bool WalkThroughSetZoomAnimation = false;
         public static bool WalkThroughSetSlideOverAnimation = false;
         public static bool WalkThroughSetDepthAnimation = false;
@@ -74,22 +74,22 @@ namespace WoWonder
 
         //FaceBook Ads >> Please add the code ad in the Here and analytic.xml 
         //*********************************************************
-        public static bool ShowFbBannerAds = false; //#New
-        public static bool ShowFbInterstitialAds = false; //#New
-        public static bool ShowFbRewardVideoAds = false; //#New
-        public static bool ShowFbNativeAds = false; //#New
+        public static bool ShowFbBannerAds = false; 
+        public static bool ShowFbInterstitialAds = false;  
+        public static bool ShowFbRewardVideoAds = false; 
+        public static bool ShowFbNativeAds = false; 
          
         //YOUR_PLACEMENT_ID
-        public static string AdsFbBannerKey = "250485588986218_554026418632132"; //#New
-        public static string AdsFbInterstitialKey = "250485588986218_554026125298828"; //#New
-        public static string AdsFbRewardVideoKey = "250485588986218_554072818627492"; //#New
-        public static string AdsFbNativeKey = "250485588986218_554706301897477"; //#New
+        public static string AdsFbBannerKey = "250485588986218_554026418632132"; 
+        public static string AdsFbInterstitialKey = "250485588986218_554026125298828";  
+        public static string AdsFbRewardVideoKey = "250485588986218_554072818627492"; 
+        public static string AdsFbNativeKey = "250485588986218_554706301897477"; 
 
         //Three times after entering the ad is displayed
-        public static int ShowFbNativeAdsCount = 40; //#New
+        public static int ShowFbNativeAdsCount = 40;  
          
         //********************************************************* 
-        public static bool EnableRegisterSystem = true; //#New
+        public static bool EnableRegisterSystem = true;  
         public static bool ShowGenderOnRegister = true; 
 
         //Set Theme Welcome Pages 
@@ -119,8 +119,10 @@ namespace WoWonder
         public static bool ShowGoogleLogin = false;
 
         public static readonly string ClientId = "430795656343-679a7fus3pfr1ani0nr0gosotgcvq2s8.apps.googleusercontent.com";
-        
+
         //########################### 
+
+        public static bool ShowTrendingPage = true;  //#New
 
         //Main Slider settings
         //*********************************************************
@@ -142,45 +144,45 @@ namespace WoWonder
         public static bool ShowMyPhoto = true; 
         public static bool ShowMyVideo = false; 
         public static bool ShowGames = false;
-        public static bool ShowMemories = false; //#New 
-        public static bool ShowOffers = true; //#New 
-        public static bool ShowNearbyShops = false;  //#New 
+        public static bool ShowMemories = false;  
+        public static bool ShowOffers = true;  
+        public static bool ShowNearbyShops = false;   
 
         public static bool ShowSuggestedGroup = true;
-        public static bool ShowSuggestedUser = true; //#New 
+        public static bool ShowSuggestedUser = true;  
 
 
         //count times after entering the Suggestion is displayed
-        public static int ShowSuggestedGroupCount = 70; //#New 
-        public static int ShowSuggestedUserCount = 50; //#New 
+        public static int ShowSuggestedGroupCount = 70; 
+        public static int ShowSuggestedUserCount = 50;  
 
         //Events settings
         //*********************************************************
         public static bool ShowEvents = true; 
-        public static bool ShowEventGoing = true; //#New 
-        public static bool ShowEventInvited = true; //#New 
-        public static bool ShowEventInterested = true; //#New 
-        public static bool ShowEventPast = true; //#New 
+        public static bool ShowEventGoing = true; 
+        public static bool ShowEventInvited = true;  
+        public static bool ShowEventInterested = true;  
+        public static bool ShowEventPast = true; 
 
         //Set a story duration >> 10 Sec
-        public static long StoryDuration = 10000L; //#New 
+        public static long StoryDuration = 10000L;
         //*********************************************************
         /// <summary>
         ///  Currency
         /// CurrencyStatic = true : get currency from app not api 
         /// CurrencyStatic = false : get currency from api (default)
         /// </summary>
-        public static readonly bool CurrencyStatic = false; //#New
-        public static readonly string CurrencyIconStatic = "R$"; //#New
-        public static readonly string CurrencyCodeStatic = "BRL"; //#New
-        public static readonly string CurrencyFundingPriceStatic = "R$"; //#New
+        public static readonly bool CurrencyStatic = false;
+        public static readonly string CurrencyIconStatic = "R$";
+        public static readonly string CurrencyCodeStatic = "BRL";
+        public static readonly string CurrencyFundingPriceStatic = "R$";
 
         //Profile settings
         //*********************************************************
         public static bool ShowGift = true;
-        public static bool ShowWallet = false; //#New
-        public static bool ShowGoPro = true; //#New
-        public static bool ShowWithdrawals = true; //#New
+        public static bool ShowWallet = false; 
+        public static bool ShowGoPro = true;  
+        public static bool ShowWithdrawals = true;  
 
         //Native Post settings
         //*********************************************************
@@ -193,19 +195,19 @@ namespace WoWonder
         public static bool EmbedPlayTubePostType = true;
         public static bool EmbedDeepSoundPostType = true;
         public static bool EmbedFacebookVideoPostType = false;
-        public static bool EmbedVimeoVideoPostType = false;//#New
-        public static bool ShowSearchForPosts = true;//#New
-        public static bool EmbedLivePostType = false;//#New
+        public static bool EmbedVimeoVideoPostType = false; 
+        public static bool ShowSearchForPosts = true; 
+        public static bool EmbedLivePostType = false; 
 
-        public static bool ShowAddPostOnNewsFeed = false; //#New 
-        public static bool ShowCountSharePost = true; //#New 
+        public static bool ShowAddPostOnNewsFeed = false; 
+        public static bool ShowCountSharePost = true; 
 
         /// <summary>
         /// Post Privacy
         /// ShowPostPrivacyForAllUser = true : all posts user have icon Privacy 
         /// ShowPostPrivacyForAllUser = false : just my posts have icon Privacy (default)
         /// </summary>
-        public static bool ShowPostPrivacyForAllUser = false; //#New 
+        public static bool ShowPostPrivacyForAllUser = false; 
 
         public static bool ShowFullScreenVideoPost = true;
          
@@ -244,7 +246,7 @@ namespace WoWonder
         public static bool ShowSettingsDeleteAccount = true;
         public static bool ShowSettingsTwoFactor = true; 
         public static bool ShowSettingsManageSessions = true;  
-        public static bool ShowSettingsVerification = true; //#New 
+        public static bool ShowSettingsVerification = true; 
 
         //Settings Page >> Privacy
         public static bool ShowSettingsPrivacy = true;
@@ -276,8 +278,8 @@ namespace WoWonder
         public static bool ShowSettingsPrivacyPolicy = true;
         public static bool ShowSettingsTermsOfUse = true;
 
-        public static bool ShowSettingsInvitationLinks = false; //#New 
-        public static bool ShowSettingsMyInformation = false; //#New 
+        public static bool ShowSettingsInvitationLinks = false; 
+        public static bool ShowSettingsMyInformation = false; 
 
         public static bool ShowSuggestedUsersOnRegister = true;
 
@@ -285,17 +287,14 @@ namespace WoWonder
 
         //Set Theme Tab
         //*********************************************************
-        public static bool SetTabColoredTheme = false;
         public static bool SetTabDarkTheme = false;
-        public static bool SetBeautyTheme = true;
-        public static readonly string TabColoredColor = MainColor;
+        public static MoreTheme MoreTheme = MoreTheme.BeautyTheme; //#New
         public static bool SetTabOnButton = true;
-        public static bool SetTabIsTitledWithText = false;
 
         //Bypass Web Errors  
         //*********************************************************
-        public static bool TurnTrustFailureOnWebException = false;
-        public static bool TurnSecurityProtocolType3072On = false;
+        public static bool TurnTrustFailureOnWebException = true;
+        public static bool TurnSecurityProtocolType3072On = true;
 
         //*********************************************************
         public static bool RenderPriorityFastPostLoad = false;
@@ -304,12 +303,11 @@ namespace WoWonder
         /// if you want this feature enabled go to Properties -> AndroidManefist.xml and remove comments from below code
         /// <uses-permission android:name="com.android.vending.BILLING" />
         /// </summary>
-        public static bool ShowInAppBilling = false; //#New 
+        public static bool ShowInAppBilling = false; 
 
-        public static bool ShowPaypal = true; //#New 
-        public static bool ShowBankTransfer = true; //#New 
-        public static bool ShowCreditCard = true; //#New 
-        //*********************************************************
-
+        public static bool ShowPaypal = true; 
+        public static bool ShowBankTransfer = true; 
+        public static bool ShowCreditCard = true; 
+        //********************************************************* 
     }
 }

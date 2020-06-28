@@ -561,6 +561,8 @@ namespace WoWonder.Activities.Comment
                                 {
                                     foreach (var dataClass in from dataClass in dataGlobal let indexCom = postFeedAdapter.ListDiffer.IndexOf(dataClass) where indexCom > -1 select dataClass)
                                     {
+                                        dataClass.PostData.PostComments = CommentsAdapter.CommentList.Count.ToString();
+
                                         if (dataClass.PostData.GetPostComments?.Count > 0)
                                         {
                                             var dataComment = dataClass.PostData.GetPostComments.FirstOrDefault(a => a.Id == date.Id);
@@ -580,7 +582,7 @@ namespace WoWonder.Activities.Comment
                             }
                         }
                     }
-                    else Methods.DisplayReportResult(this, respond);
+                    //else Methods.DisplayReportResult(this, respond);
 
                     //Hide keyboard
                     TxtComment.Text = "";

@@ -695,7 +695,10 @@ namespace WoWonder.Activities.Tabbes
                 {
                     TabAdapter.AddFragment(NewsFeedTab, GetText(Resource.String.Lbl_News_Feed));
                     TabAdapter.AddFragment(NotificationsTab, GetText(Resource.String.Lbl_Notifications));
-                    TabAdapter.AddFragment(TrendingTab, GetText(Resource.String.Lbl_Trending));
+
+                    if (AppSettings.ShowTrendingPage)
+                        TabAdapter.AddFragment(TrendingTab, GetText(Resource.String.Lbl_Trending));
+
                     TabAdapter.AddFragment(MoreTab, GetText(Resource.String.Lbl_More));
                     ViewPager.CurrentItem = 3;
                     ViewPager.OffscreenPageLimit = TabAdapter.Count;
@@ -730,7 +733,7 @@ namespace WoWonder.Activities.Tabbes
                     if (NavigationTabBar.GetSelectedId() != e.Position)
                         NavigationTabBar.Show(1, true);
                 }
-                else if (e.Position == 2) // Trending_Tab
+                else if (e.Position == 2 && AppSettings.ShowTrendingPage) // Trending_Tab
                 {
                     if (NavigationTabBar.GetSelectedId() != e.Position)
                         NavigationTabBar.Show(2, true);
@@ -1237,7 +1240,7 @@ namespace WoWonder.Activities.Tabbes
                         {
                             try
                             {
-                                if (!AppSettings.SetBeautyTheme)
+                                if (AppSettings.MoreTheme == MoreTheme.Default)
                                 {
                                     var listMore = MoreTab.MoreSectionAdapter.SectionList;
                                     if (listMore?.Count > 0)
@@ -1281,7 +1284,7 @@ namespace WoWonder.Activities.Tabbes
                         {
                             try
                             {
-                                if (!AppSettings.SetBeautyTheme)
+                                if (AppSettings.MoreTheme == MoreTheme.Default)
                                 {
                                     var listMore = MoreTab.MoreSectionAdapter?.SectionList;
                                     if (listMore?.Count > 0)
@@ -1329,6 +1332,7 @@ namespace WoWonder.Activities.Tabbes
                         try
                         {
                             AddAnnouncement = true;
+                            OpenDialogAnnouncement(textAnnouncement);
                             //var combiner = new FeedCombiner(null, NewsFeedTab.PostFeedAdapter.ListDiffer, this);
                             //combiner.SetAnnouncementAlertView(textAnnouncement, "#3c763d");
                         }
@@ -1342,6 +1346,26 @@ namespace WoWonder.Activities.Tabbes
             catch (Exception e)
             {
                 Console.WriteLine(e);
+            }
+        }
+
+        private void OpenDialogAnnouncement(string textAnnouncement)
+        {
+            try
+            { 
+                var dialog = new MaterialDialog.Builder(this).Theme(AppSettings.SetTabDarkTheme ? AFollestad.MaterialDialogs.Theme.Dark : AFollestad.MaterialDialogs.Theme.Light);
+                dialog.Title(GetText(Resource.String.Lbl_Announcement));
+                dialog.Content(textAnnouncement);
+                dialog.PositiveText(GetText(Resource.String.Lbl_Close)).OnPositive((materialDialog, action) =>
+                {
+                     
+                });
+                dialog.AlwaysCallSingleChoiceCallback();
+                dialog.Build().Show();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
 

@@ -104,12 +104,13 @@ namespace WoWonder.Helpers.Ads
         {
             private TemplateView Template;
             private Activity Context;
-            public void ShowAd(Activity context)
+            public void ShowAd(Activity context , TemplateView template = null)
             {
                 try
                 {
                     Context = context;
-                    Template = Context.FindViewById<TemplateView>(Resource.Id.my_template);
+
+                    Template = template != null ? template : Context.FindViewById<TemplateView>(Resource.Id.my_template);
                     Template.Visibility = ViewStates.Gone;
 
                     if (AppSettings.ShowAdMobNative)
@@ -172,14 +173,14 @@ namespace WoWonder.Helpers.Ads
             }
         }
 
-        public static void Ad_AdMobNative(Activity context)
+        public static void Ad_AdMobNative(Activity context, TemplateView template = null)
         {
             try
             {
                 if (AppSettings.ShowAdMobNative)
                 {
                     AdMobNative ads = new AdMobNative();
-                    ads.ShowAd(context);
+                    ads.ShowAd(context, template);
                 }
             }
             catch (Exception exception)

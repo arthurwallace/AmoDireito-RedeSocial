@@ -8,6 +8,7 @@ using Android.Graphics;
 using Android.Media;
 using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AT.Markushi.UI;
@@ -16,7 +17,6 @@ using Bumptech.Glide;
 using Bumptech.Glide.Integration.RecyclerView;
 using Bumptech.Glide.Request;
 using Bumptech.Glide.Util;
-using Com.Github.Library.Bubbleview;
 using Com.Luseen.Autolinklibrary;
 using Com.Tuyenmonkey.Textdecorator;
 using Java.IO;
@@ -33,6 +33,7 @@ using WoWonderClient.Classes.Comments;
 using WoWonderClient.Requests;
 using Console = System.Console;
 using IList = System.Collections.IList;
+using LayoutDirection = Android.Views.LayoutDirection;
 using Object = Java.Lang.Object;
 using Timer = System.Timers.Timer;
 using Uri = Android.Net.Uri;
@@ -62,28 +63,31 @@ namespace WoWonder.Activities.Comment.Adapters
             {
                 HasStableIds = true;
                 ActivityContext = context;
-                var mainRecyclerView1 = mainRecyclerView;
-                ThemeColor = themeColor;
-                ApiIdParameter = postId;
+                if (mainRecyclerView != null)
+                {  
+                    var mainRecyclerView1 = mainRecyclerView;
+                    ThemeColor = themeColor;
+                    ApiIdParameter = postId;
 
-                var mainLinearLayoutManager = new LinearLayoutManager(context);
-                mainRecyclerView1.SetLayoutManager(mainLinearLayoutManager);
+                    var mainLinearLayoutManager = new LinearLayoutManager(context);
+                    mainRecyclerView1.SetLayoutManager(mainLinearLayoutManager);
 
-                var sizeProvider = new FixedPreloadSizeProvider(10, 10);
-                var preLoader = new RecyclerViewPreloader<CommentObjectExtra>(context, this, sizeProvider, 8);
-                mainRecyclerView1.AddOnScrollListener(preLoader);
+                    var sizeProvider = new FixedPreloadSizeProvider(10, 10);
+                    var preLoader = new RecyclerViewPreloader<CommentObjectExtra>(context, this, sizeProvider, 8);
+                    mainRecyclerView1.AddOnScrollListener(preLoader);
 
-                mainRecyclerView1.SetAdapter(this);
-                mainRecyclerView1.HasFixedSize = true;
-                mainRecyclerView1.SetItemViewCacheSize(10);
-                mainRecyclerView1.ClearAnimation();
-                mainRecyclerView1.GetLayoutManager().ItemPrefetchEnabled = true;
-                mainRecyclerView1.SetItemViewCacheSize(10);
+                    mainRecyclerView1.SetAdapter(this);
+                    mainRecyclerView1.HasFixedSize = true;
+                    mainRecyclerView1.SetItemViewCacheSize(10);
+                    mainRecyclerView1.ClearAnimation();
+                    mainRecyclerView1.GetLayoutManager().ItemPrefetchEnabled = true;
+                    mainRecyclerView1.SetItemViewCacheSize(10);
 
-                MainScrollEvent = new RecyclerScrollListener();
-                mainRecyclerView1.AddOnScrollListener(MainScrollEvent);
-                MainScrollEvent.LoadMoreEvent += MainScrollEvent_LoadMoreEvent;
-                MainScrollEvent.IsLoading = false; 
+                    MainScrollEvent = new RecyclerScrollListener();
+                    mainRecyclerView1.AddOnScrollListener(MainScrollEvent);
+                    MainScrollEvent.LoadMoreEvent += MainScrollEvent_LoadMoreEvent;
+                    MainScrollEvent.IsLoading = false;
+                }
             }
             catch (Exception e)
             {
@@ -125,10 +129,7 @@ namespace WoWonder.Activities.Comment.Adapters
             {
                 if (!(viewHolder is CommentAdapterViewHolder holder))
                     return;
-
-                if (AppSettings.FlowDirectionRightToLeft)
-                    holder.BubbleLayout.LayoutDirection = LayoutDirection.Rtl;
-              
+                 
                 if (!string.IsNullOrEmpty(item.Text) || !string.IsNullOrWhiteSpace(item.Text))
                 {
                     var changer = new TextSanitizer(holder.CommentText, ActivityContext);
@@ -724,7 +725,7 @@ namespace WoWonder.Activities.Comment.Adapters
         #region Variables Basic
 
         public View MainView { get; private set; }
-        public BubbleLinearLayout BubbleLayout { get; private set; }
+        public LinearLayout BubbleLayout { get; private set; }
         public CircleImageView Image { get; private set; }
         public AutoLinkTextView CommentText { get; private set; }
         public TextView TimeTextView { get; private set; }
@@ -747,7 +748,7 @@ namespace WoWonder.Activities.Comment.Adapters
             {
                 MainView = itemView;
 
-                BubbleLayout = MainView.FindViewById<BubbleLinearLayout>(Resource.Id.bubble_layout);
+                BubbleLayout = MainView.FindViewById<LinearLayout>(Resource.Id.bubble_layout);
                 Image = MainView.FindViewById<CircleImageView>(Resource.Id.card_pro_pic);
                 CommentText = MainView.FindViewById<AutoLinkTextView>(Resource.Id.active);
                 UserName = MainView.FindViewById<TextView>(Resource.Id.username);
@@ -771,6 +772,9 @@ namespace WoWonder.Activities.Comment.Adapters
                 var font = Typeface.CreateFromAsset(MainView.Context.Resources.Assets, "ionicons.ttf");
                 UserName.SetTypeface(font, TypefaceStyle.Normal);
 
+                if (AppSettings.FlowDirectionRightToLeft)
+                    BubbleLayout.SetBackgroundResource(Resource.Drawable.comment_rounded_right_layout);
+
                 if (AppSettings.SetTabDarkTheme)
                 {
                     ReplyTextView.SetTextColor(Color.White);
@@ -780,7 +784,7 @@ namespace WoWonder.Activities.Comment.Adapters
                 {
                     ReplyTextView.SetTextColor(Color.Black);
                     LikeTextView.SetTextColor(Color.Black);
-                }
+                } 
             }
             catch (Exception e)
             {

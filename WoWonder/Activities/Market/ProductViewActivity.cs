@@ -213,7 +213,7 @@ namespace WoWonder.Activities.Market
 
                 LikeButton = FindViewById<ReactButton>(Resource.Id.beactButton);
 
-                if (AppSettings.PostButton == PostButtonSystem.Reaction || AppSettings.PostButton == PostButtonSystem.Like)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine || AppSettings.PostButton == PostButtonSystem.Like)
                 {
                     MainSectionButton.WeightSum = 2;
                     BtnWonder.Visibility = ViewStates.Gone;
@@ -290,7 +290,7 @@ namespace WoWonder.Activities.Market
                         NewsFeedClass = PostData,
                     } , null, "ProductViewActivity");
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         LikeButton.LongClick += (sender, args) => LikeButton.LongClickDialog(new GlobalClickEventArgs()
                         {
                             NewsFeedClass = PostData,
@@ -310,7 +310,7 @@ namespace WoWonder.Activities.Market
                         BtnWonder.Click -= BtnWonderOnClick;
 
                     LikeButton.Click += null;
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         LikeButton.LongClick -= null; 
                 }
             }
@@ -891,7 +891,7 @@ namespace WoWonder.Activities.Market
 
                         }
 
-                        if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                        if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         {
                             if (PostData.Reaction == null)
                                 PostData.Reaction = new WoWonderClient.Classes.Posts.Reaction();

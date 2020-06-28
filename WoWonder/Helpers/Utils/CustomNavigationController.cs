@@ -41,10 +41,13 @@ namespace WoWonder.Helpers.Utils
                 {
                     new MeowBottomNavigation.Model(0, ContextCompat.GetDrawable(MainContext, Resource.Drawable.icon_home_vector)),
                     new MeowBottomNavigation.Model(1, ContextCompat.GetDrawable(MainContext, Resource.Drawable.icon_notification_vector)),
-                    new MeowBottomNavigation.Model(2, ContextCompat.GetDrawable(MainContext, Resource.Drawable.icon_fire_vector)),
-                    new MeowBottomNavigation.Model(3, ContextCompat.GetDrawable(MainContext, Resource.Drawable.ic_menu))
                 };
 
+                if (AppSettings.ShowTrendingPage)
+                    Models.Add(new MeowBottomNavigation.Model(2, ContextCompat.GetDrawable(MainContext, Resource.Drawable.icon_fire_vector)));
+
+                Models.Add(new MeowBottomNavigation.Model(3, ContextCompat.GetDrawable(MainContext, Resource.Drawable.ic_menu)));
+                 
                 NavigationTabBar.AddModel(Models);
 
                 NavigationTabBar.SetDefaultIconColor(Color.ParseColor("#bfbfbf"));
@@ -92,7 +95,7 @@ namespace WoWonder.Helpers.Utils
 
                         Context.RewardedVideoAd = AdsGoogle.Ad_RewardedVideo(MainContext); 
                     }
-                    else if (PageNumber == 2) // Trending_Tab
+                    else if (PageNumber == 2 && AppSettings.ShowTrendingPage) // Trending_Tab
                     {
                         if (Context.FloatingActionButton.Visibility == ViewStates.Visible)
                             Context.FloatingActionButton.Visibility = ViewStates.Gone;
@@ -144,7 +147,7 @@ namespace WoWonder.Helpers.Utils
                     Context.NewsFeedTab?.MainRecyclerView?.ReleasePlayer();
                     OpenNewsFeedTab = 1;
                 }
-                else if (p == 2) // Trending_Tab
+                else if (p == 2 && AppSettings.ShowTrendingPage) // Trending_Tab
                 {
                     Context.NewsFeedTab?.MainRecyclerView?.ReleasePlayer();
                     OpenNewsFeedTab = 1;

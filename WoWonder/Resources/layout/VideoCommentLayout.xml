@@ -43,11 +43,12 @@
       android:hint="@string/Lbl_AddCommentHere"
       android:textColorHint="?attr/colorReact" />
     <ImageView
-      android:layout_width="35dp"
-      android:layout_height="35dp"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
       android:layout_marginTop="5dp"
       android:layout_marginBottom="3dp"
       android:layout_marginEnd="10dp"
+      android:padding="2dp"
       android:id="@+id/send"
       android:tint="?attr/colorReact"
       android:src="@drawable/ic_send"

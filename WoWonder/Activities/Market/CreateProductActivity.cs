@@ -24,6 +24,7 @@ using WoWonder.Helpers.Controller;
 using WoWonder.Helpers.Fonts;
 using WoWonder.Helpers.Model;
 using WoWonder.Helpers.Utils;
+using WoWonderClient.Classes.Global;
 using WoWonderClient.Classes.Posts;
 using WoWonderClient.Classes.Product;
 using WoWonderClient.Requests;
@@ -550,13 +551,20 @@ namespace WoWonder.Activities.Market
                                 returnIntent.PutExtra("product", JsonConvert.SerializeObject(data));
                                 SetResult(Result.Ok, returnIntent);
 
-                                AndHUD.Shared.ShowSuccess(this); 
+                                AndHUD.Shared.ShowSuccess(this, "" , MaskType.Clear, TimeSpan.FromSeconds(2));
                                 Finish();
                             }
                         }
-                        else Methods.DisplayReportResult(this, respond);
-
-                        AndHUD.Shared.Dismiss(this);
+                        else
+                        {
+                            if (respond is ErrorObject error)
+                            {
+                                var errorText = error.Error.ErrorText;
+                                //Show a Error 
+                                AndHUD.Shared.ShowError(this, errorText, MaskType.Clear, TimeSpan.FromSeconds(2));
+                            }
+                            //Methods.DisplayReportResult(this, respond);
+                        }
                     }
                 }
             }

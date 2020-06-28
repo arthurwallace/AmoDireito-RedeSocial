@@ -263,7 +263,7 @@ namespace WoWonder.Activities.NativePost.Post
                         ShareLinearLayout.Visibility = ViewStates.Gone;
 
                     MainSectionButton = itemView.FindViewById<LinearLayout>(Resource.Id.linerSecondReaction);
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction || AppSettings.PostButton == PostButtonSystem.Like)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine || AppSettings.PostButton == PostButtonSystem.Like)
                     {
                         MainSectionButton.WeightSum = AppSettings.ShowShareButton ? 3 : 2;
 
@@ -331,7 +331,7 @@ namespace WoWonder.Activities.NativePost.Post
             public bool OnLongClick(View v)
             {
                 //add event if System = ReactButton 
-                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                 {
                     var item = PostAdapter.ListDiffer[AdapterPosition]?.PostData;
 
@@ -1554,7 +1554,7 @@ namespace WoWonder.Activities.NativePost.Post
                     if (StoryAdapter != null)
                         return;
 
-                    FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, IonIconsFonts.ChevronRight);
+                    FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
 
                     StoryRecyclerView.SetLayoutManager(new LinearLayoutManager(itemView.Context, LinearLayoutManager.Horizontal, false));
                     StoryAdapter = new StoryAdapter(postAdapter.ActivityContext);
@@ -1694,7 +1694,7 @@ namespace WoWonder.Activities.NativePost.Post
                                     case "feed":
                                     case "user":
                                         intent.PutExtra("Type", "Normal_Gallery");
-                                        intent.PutExtra("PostId", UserDetails.UserId);
+                                        intent.PutExtra("PostId", PostAdapter.IdParameter);
                                         break;
                                     case "Group":
                                         intent.PutExtra("Type", "SocialGroup");
@@ -1722,7 +1722,7 @@ namespace WoWonder.Activities.NativePost.Post
                                         break;
                                     default:
                                         intent.PutExtra("Type", "Normal");
-                                        intent.PutExtra("PostId", UserDetails.UserId);
+                                        intent.PutExtra("PostId", PostAdapter.IdParameter);
                                         break;
                                 }
 
@@ -1744,7 +1744,7 @@ namespace WoWonder.Activities.NativePost.Post
                                     case "feed":
                                     case "user":
                                         intent.PutExtra("Type", "Normal");
-                                        intent.PutExtra("PostId", UserDetails.UserId);
+                                        intent.PutExtra("PostId", PostAdapter.IdParameter);
                                         break;
                                     case "Group":
                                         intent.PutExtra("Type", "SocialGroup");
@@ -1772,7 +1772,7 @@ namespace WoWonder.Activities.NativePost.Post
                                         break;
                                     default:
                                         intent.PutExtra("Type", "Normal");
-                                        intent.PutExtra("PostId", UserDetails.UserId);
+                                        intent.PutExtra("PostId", PostAdapter.IdParameter);
                                         break;
                                 }
                                 PostAdapter.ActivityContext.StartActivityForResult(intent, 2500);
@@ -2152,7 +2152,7 @@ namespace WoWonder.Activities.NativePost.Post
                     if (PagesAdapter != null)
                         return;
 
-                    //FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, IonIconsFonts.ChevronRight);
+                    //FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
 
                     PagesRecyclerView.SetLayoutManager(new LinearLayoutManager(itemView.Context, LinearLayoutManager.Horizontal, false));
                     PagesAdapter = new UserPagesAdapter(activity);
@@ -2207,7 +2207,7 @@ namespace WoWonder.Activities.NativePost.Post
                     if (GroupsAdapter != null)
                         return;
 
-                    //FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, IonIconsFonts.ChevronRight);
+                    //FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
 
                     GroupsRecyclerView.SetLayoutManager(new LinearLayoutManager(itemView.Context, LinearLayoutManager.Horizontal, false));
                     GroupsAdapter = new UserGroupsAdapter(activity);
@@ -2363,7 +2363,7 @@ namespace WoWonder.Activities.NativePost.Post
                     if (UsersAdapter != null)
                         return;
 
-                    // FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, IonIconsFonts.ChevronRight);
+                    // FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
 
                     UsersRecyclerView.SetLayoutManager(new LinearLayoutManager(itemView.Context, LinearLayoutManager.Horizontal, false));
                     UsersAdapter = new SuggestionsUserAdapter(postAdapter.ActivityContext)
@@ -2462,7 +2462,7 @@ namespace WoWonder.Activities.NativePost.Post
                     if (GroupsAdapter != null)
                         return;
 
-                    // FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, IonIconsFonts.ChevronRight);
+                    // FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, AboutMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRightChevronRight);
 
                     GroupsRecyclerView.SetLayoutManager(new LinearLayoutManager(itemView.Context, LinearLayoutManager.Horizontal, false));
                     GroupsAdapter = new SuggestedGroupAdapter(postAdapter.ActivityContext)
@@ -2916,12 +2916,13 @@ namespace WoWonder.Activities.NativePost.Post
         }
         
         public class PromoteHolder : RecyclerView.ViewHolder
-        { 
+        {
+            public RelativeLayout PromoteLayout { get; private set; }
             public PromoteHolder(View itemView) : base(itemView)
             {
                 try
                 {
-                    
+                    PromoteLayout = (RelativeLayout)itemView.FindViewById(Resource.Id.promoteLayout);
                 }
                 catch (Exception e)
                 {

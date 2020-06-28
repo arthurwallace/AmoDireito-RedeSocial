@@ -95,9 +95,7 @@ namespace WoWonder.Activities.Market.Adapters
                 }
 
                 GlideImageLoader.LoadImage(ActivityContext, item.Seller?.Avatar, holder.Userprofilepic,ImageStyle.CircleCrop, ImagePlaceholders.Color);
-                 
-               
-                 
+                  
                 holder.Title.Text = Methods.FunString.DecodeString(item.Name);
                 holder.UserName.Text = WoWonderTools.GetNameFinal(item.Seller);
                 holder.Time.Text = item.TimeText;

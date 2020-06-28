@@ -331,13 +331,20 @@ namespace WoWonder.Activities.Fundings
                             } 
                         }
 
-                        AndHUD.Shared.ShowSuccess(this);
+                        AndHUD.Shared.ShowSuccess(this, "" , MaskType.Clear, TimeSpan.FromSeconds(2));
                         Toast.MakeText(this, GetString(Resource.String.Lbl_FundingSuccessfullyEdited), ToastLength.Short).Show();
                         Finish();
                     }
-                    else Methods.DisplayReportResult(this, respond);
-
-                    AndHUD.Shared.Dismiss(this);
+                   else
+                {
+                    if (respond is ErrorObject error)
+                    {
+                        var errorText = error.Error.ErrorText;
+                        //Show a Error 
+                        AndHUD.Shared.ShowError(this, errorText, MaskType.Clear, TimeSpan.FromSeconds(2));
+                    }
+                    //Methods.DisplayReportResult(this, respond);
+                } 
                 }
             }
             catch (Exception exception)

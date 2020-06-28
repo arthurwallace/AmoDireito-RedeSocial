@@ -565,6 +565,12 @@ namespace WoWonder.Activities.Story
         {
             try
             {
+               
+
+
+
+
+
                 AdsGoogle.Ad_Interstitial(this);
                 Finish();
             }

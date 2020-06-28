@@ -6,6 +6,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
+using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Views;
@@ -20,6 +21,7 @@ using WoWonder.Helpers.Controller;
 using WoWonder.Helpers.Fonts;
 using WoWonder.Helpers.Utils;
 using WoWonderClient.Classes.Funding;
+using WoWonderClient.Classes.Global;
 using WoWonderClient.Requests;
 using Console = System.Console;
 using Exception = System.Exception;
@@ -344,15 +346,22 @@ namespace WoWonder.Activities.Fundings
 
                                     RunOnUiThread(() => FundingActivity.GetInstance().MAdapter.NotifyItemInserted(0));
                                 } 
-                                AndHUD.Shared.ShowSuccess(this); 
+                                AndHUD.Shared.ShowSuccess(this, "" , MaskType.Clear, TimeSpan.FromSeconds(2));
                             }
 
                             Finish(); 
                         }
                     }
-                    else Methods.DisplayReportResult(this, respond);
-
-                    AndHUD.Shared.Dismiss(this);
+                    else
+                    {
+                        if (respond is ErrorObject error)
+                        {
+                            var errorText = error.Error.ErrorText;
+                            AndHUD.Shared.Dismiss(this);
+                            Snackbar.Make(TxtDescription, errorText, Snackbar.LengthLong).Show();
+                        }
+                        Methods.DisplayReportResult(this, respond);
+                    }
                 }
             }
             catch (Exception exception)

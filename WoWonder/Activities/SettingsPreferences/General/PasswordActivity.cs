@@ -259,7 +259,7 @@ namespace WoWonder.Activities.SettingsPreferences.General
                     return;
                 }
 
-                if (TxtCurrentPassword.Text == "" || TxtNewPassword.Text == "" || TxtRepeatPassword.Text == "")
+                if (string.IsNullOrEmpty(TxtCurrentPassword.Text) || string.IsNullOrEmpty(TxtNewPassword.Text) || string.IsNullOrEmpty(TxtRepeatPassword.Text))
                 {
                     Toast.MakeText(this, GetText(Resource.String.Lbl_Please_check_your_details), ToastLength.Long).Show();
                     return;
@@ -274,41 +274,41 @@ namespace WoWonder.Activities.SettingsPreferences.General
                 //Show a progress
                 AndHUD.Shared.Show(this, GetText(Resource.String.Lbl_Loading));
 
-                if (TxtCurrentPassword.Text != null && TxtNewPassword.Text != null && TxtRepeatPassword.Text != null)
+                var dataPrivacy = new Dictionary<string, string>
                 {
-                    var dataPrivacy = new Dictionary<string, string>
-                    {
-                        {"new_password", TxtNewPassword.Text},
-                        {"current_password", TxtCurrentPassword.Text}
-                    };
+                    {"new_password", TxtNewPassword.Text},
+                    {"current_password", TxtCurrentPassword.Text}
+                };
 
-                    var (apiStatus, respond) =await RequestsAsync.Global.Update_User_Data(dataPrivacy);
-                    if (apiStatus == 200)
+                var (apiStatus, respond) = await RequestsAsync.Global.Update_User_Data(dataPrivacy);
+                if (apiStatus == 200)
+                {
+                    if (respond is MessageObject result)
                     {
-                        if (respond is MessageObject result)
+                        if (result.Message.Contains("updated"))
                         {
-                            if (result.Message.Contains("updated"))
-                            {
-                                UserDetails.Password = TxtNewPassword.Text;
+                            UserDetails.Password = TxtNewPassword.Text;
 
-                                Toast.MakeText(this, result.Message, ToastLength.Short).Show();
-                                AndHUD.Shared.Dismiss(this);
-                            }
-                            else
-                            {
-                                //Show a Error image with a message
-                                AndHUD.Shared.ShowError(this, result.Message, MaskType.Clear,TimeSpan.FromSeconds(2));
-                            }
+                            Toast.MakeText(this, result.Message, ToastLength.Short).Show();
+                            AndHUD.Shared.Dismiss(this);
+                        }
+                        else
+                        {
+                            //Show a Error image with a message
+                            AndHUD.Shared.ShowError(this, result.Message, MaskType.Clear, TimeSpan.FromSeconds(2));
                         }
                     }
-                    else Methods.DisplayReportResult(this, respond);
                 }
                 else
                 {
-                    Toast.MakeText(this, GetString(Resource.String.Lbl_Please_check_your_details),ToastLength.Long).Show();
-                }
-
-                AndHUD.Shared.Dismiss(this);
+                    if (respond is ErrorObject error)
+                    {
+                        var errorText = error.Error.ErrorText;
+                        //Show a Error 
+                        AndHUD.Shared.ShowError(this, errorText, MaskType.Clear, TimeSpan.FromSeconds(2));
+                    }
+                    //Methods.DisplayReportResult(this, respond);
+                } 
             }
             catch (Exception e)
             {

@@ -11,7 +11,6 @@ using Android.Widget;
 using Bumptech.Glide;
 using Bumptech.Glide.Integration.RecyclerView;
 using Bumptech.Glide.Util;
-using Com.Github.Library.Bubbleview;
 using Com.Luseen.Autolinklibrary;
 using Com.Tuyenmonkey.Textdecorator;
 using Java.Util;
@@ -522,7 +521,7 @@ namespace WoWonder.Activities.Movies.Adapters
         #region Variables Basic
 
         public View MainView { get; private set; }
-        public BubbleLinearLayout BubbleLayout { get; private set; }
+        public LinearLayout BubbleLayout { get; private set; }
         public CircleImageView Image { get; private set; }
         public AutoLinkTextView CommentText { get; private set; }
         public TextView TimeTextView { get; private set; }
@@ -538,7 +537,7 @@ namespace WoWonder.Activities.Movies.Adapters
             {
                 MainView = itemView;
 
-                BubbleLayout = MainView.FindViewById<BubbleLinearLayout>(Resource.Id.bubble_layout);
+                BubbleLayout = MainView.FindViewById<LinearLayout>(Resource.Id.bubble_layout);
                 Image = MainView.FindViewById<CircleImageView>(Resource.Id.card_pro_pic);
                 CommentText = MainView.FindViewById<AutoLinkTextView>(Resource.Id.active);
                 UserName = MainView.FindViewById<TextView>(Resource.Id.username);
@@ -548,6 +547,9 @@ namespace WoWonder.Activities.Movies.Adapters
 
                 var font = Typeface.CreateFromAsset(MainView.Context.Resources.Assets, "ionicons.ttf");
                 UserName.SetTypeface(font, TypefaceStyle.Normal);
+
+                if (AppSettings.FlowDirectionRightToLeft)
+                    BubbleLayout.SetBackgroundResource(Resource.Drawable.comment_rounded_right_layout);
 
                 if (themeColor != "Dark")
                     return;

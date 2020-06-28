@@ -334,8 +334,6 @@ namespace WoWonder.Activities.Communities.Pages
                     }
                     //Methods.DisplayReportResult(this, respond);
                 }
-
-                AndHUD.Shared.Dismiss(this);
             }
             catch (Exception exception)
             {

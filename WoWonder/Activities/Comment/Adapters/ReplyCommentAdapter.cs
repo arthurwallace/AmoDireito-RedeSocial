@@ -13,7 +13,6 @@ using Bumptech.Glide;
 using Bumptech.Glide.Integration.RecyclerView;
 using Bumptech.Glide.Request;
 using Bumptech.Glide.Util;
-using Com.Github.Library.Bubbleview;
 using Com.Luseen.Autolinklibrary;
 using Com.Tuyenmonkey.Textdecorator;
 using Java.IO;
@@ -470,7 +469,7 @@ namespace WoWonder.Activities.Comment.Adapters
         #region Variables Basic
 
         public View MainView { get; private set; }
-        public BubbleLinearLayout BubbleLayout { get; private set; }
+        public LinearLayout BubbleLayout { get; private set; }
 
         public CircleImageView Image { get; private set; }
         public AutoLinkTextView CommentText { get; private set; }
@@ -487,7 +486,7 @@ namespace WoWonder.Activities.Comment.Adapters
             try
             {
                 MainView = itemView;
-                BubbleLayout = MainView.FindViewById<BubbleLinearLayout>(Resource.Id.bubble_layout);
+                BubbleLayout = MainView.FindViewById<LinearLayout>(Resource.Id.bubble_layout);
                 Image = MainView.FindViewById<CircleImageView>(Resource.Id.card_pro_pic);
                 CommentText = MainView.FindViewById<AutoLinkTextView>(Resource.Id.active);
                 UserName = MainView.FindViewById<TextView>(Resource.Id.username);
@@ -498,8 +497,10 @@ namespace WoWonder.Activities.Comment.Adapters
                
                 var font = Typeface.CreateFromAsset(MainView.Context.Resources.Assets, "ionicons.ttf");
                 UserName.SetTypeface(font, TypefaceStyle.Normal);
-                ReplyTextView.Visibility = ViewStates.Visible; 
+                ReplyTextView.Visibility = ViewStates.Visible;
 
+                if (AppSettings.FlowDirectionRightToLeft)
+                    BubbleLayout.SetBackgroundResource(Resource.Drawable.comment_rounded_right_layout); 
             }
             catch (Exception e)
             {

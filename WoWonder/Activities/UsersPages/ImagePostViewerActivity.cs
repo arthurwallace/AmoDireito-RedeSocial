@@ -273,7 +273,7 @@ namespace WoWonder.Activities.UsersPages
                 if (!AppSettings.ShowTextShareButton && ShareText != null)
                     ShareText.Visibility = ViewStates.Gone;
 
-                if (AppSettings.PostButton == PostButtonSystem.Reaction || AppSettings.PostButton == PostButtonSystem.Like)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine || AppSettings.PostButton == PostButtonSystem.Like)
                 {
                     MainSectionButton.WeightSum = 3;
                     BtnWonder.Visibility = ViewStates.Gone;
@@ -364,7 +364,7 @@ namespace WoWonder.Activities.UsersPages
                         View = TxtCountLike,
                     },null, "ImagePostViewerActivity");
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         LikeButton.LongClick += (sender, args) => LikeButton.LongClickDialog(new GlobalClickEventArgs()
                         {
                             NewsFeedClass = AlbumData,
@@ -384,7 +384,7 @@ namespace WoWonder.Activities.UsersPages
                         BtnWonder.Click -= BtnWonderOnClick;
 
                     LikeButton.Click += null;
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         LikeButton.LongClick -= null; 
                 }
             }
@@ -541,7 +541,7 @@ namespace WoWonder.Activities.UsersPages
         {
             try
             {
-                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                 {
                     if (AlbumData.Reaction.Count > 0)
                     {
@@ -630,7 +630,14 @@ namespace WoWonder.Activities.UsersPages
                         }
                     }
 
-                    TxtDescription.Text = Methods.FunString.DecodeString(AlbumData.Orginaltext);
+                    if (string.IsNullOrEmpty(AlbumData.Orginaltext) || string.IsNullOrWhiteSpace(AlbumData.Orginaltext))
+                    {
+                        TxtDescription.Visibility = ViewStates.Gone;
+                    }
+                    else
+                    {
+                        TxtDescription.Text = Methods.FunString.DecodeString(AlbumData.Orginaltext);
+                    }
 
                     if (AlbumData.IsLiked != null && AlbumData.IsLiked.Value)
                     {
@@ -662,7 +669,7 @@ namespace WoWonder.Activities.UsersPages
                       
                     TxtCountWoWonder.Text = Methods.FunString.FormatPriceValue(int.Parse(AlbumData.PostWonders));
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                     {
                         AlbumData.Reaction ??= new WoWonderClient.Classes.Posts.Reaction();
 

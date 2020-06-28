@@ -10,7 +10,6 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Com.Github.Library.Bubbleview;
 using Com.Luseen.Autolinklibrary;
 using Com.Tuyenmonkey.Textdecorator;
 using Newtonsoft.Json;
@@ -35,7 +34,7 @@ namespace WoWonder.Activities.Comment
       
         private readonly BottomSheetCallback MBottomSheetBehaviorCallback = new MyBottomSheetCallBack();
 
-        private BubbleLinearLayout BubbleLayout;
+        private LinearLayout BubbleLayout;
         private CircleImageView Image;
         private AutoLinkTextView CommentText;
         private TextView TimeTextView;
@@ -113,7 +112,7 @@ namespace WoWonder.Activities.Comment
         {
             try
             {
-                BubbleLayout = view.FindViewById<BubbleLinearLayout>(Resource.Id.bubble_layout);
+                BubbleLayout = view.FindViewById<LinearLayout>(Resource.Id.bubble_layout);
                 Image = view.FindViewById<CircleImageView>(Resource.Id.card_pro_pic);
                 CommentText = view.FindViewById<AutoLinkTextView>(Resource.Id.active);
                 UserName = view.FindViewById<TextView>(Resource.Id.username);
@@ -123,6 +122,9 @@ namespace WoWonder.Activities.Comment
                  
                 var font = Typeface.CreateFromAsset(view.Context.Resources.Assets, "ionicons.ttf");
                 UserName.SetTypeface(font, TypefaceStyle.Normal);
+
+                if (AppSettings.FlowDirectionRightToLeft)
+                    BubbleLayout.SetBackgroundResource(Resource.Drawable.comment_rounded_right_layout);
 
                 MRecycler = view.FindViewById<RecyclerView>(Resource.Id.recycler_view);
                 TxtComment = view.FindViewById<EditText>(Resource.Id.commenttext);

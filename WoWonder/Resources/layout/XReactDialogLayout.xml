@@ -3,27 +3,27 @@
     android:id="@+id/reactLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
+    android:background="@drawable/rounded_dialog" 
     android:orientation="horizontal">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgButtonOne"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/selectableItemBackground"
         style="@style/ReactImageButton"
         android:src="@drawable/like" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgButtonTwo"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/selectableItemBackground"
         style="@style/ReactImageButton"
         android:src="@drawable/love" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgButtonThree"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/selectableItemBackground"
         style="@style/ReactImageButton"
         android:src="@drawable/haha" />
     <ImageView
@@ -31,20 +31,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/imgButtonFour"
         style="@style/ReactImageButton"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/selectableItemBackground"
         android:src="@drawable/wow" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgButtonFive"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/selectableItemBackground"
         style="@style/ReactImageButton"
         android:src="@drawable/sad" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgButtonSix"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/selectableItemBackground"
         style="@style/ReactImageButton"
         android:src="@drawable/angry" />
 </LinearLayout>

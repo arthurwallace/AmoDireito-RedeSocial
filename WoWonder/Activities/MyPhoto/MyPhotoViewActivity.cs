@@ -272,7 +272,7 @@ namespace WoWonder.Activities.MyPhoto
                 if (!AppSettings.ShowTextShareButton && ShareText != null)
                     ShareText.Visibility = ViewStates.Gone;
 
-                if (AppSettings.PostButton == PostButtonSystem.Reaction || AppSettings.PostButton == PostButtonSystem.Like)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine || AppSettings.PostButton == PostButtonSystem.Like)
                 {
                     MainSectionButton.WeightSum = 3;
                     BtnWonder.Visibility = ViewStates.Gone;
@@ -364,7 +364,7 @@ namespace WoWonder.Activities.MyPhoto
                         View = TxtCountLike,
                     }, null, "MultiImagesPostViewerActivity");
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         LikeButton.LongClick += (sender, args) => LikeButton.LongClickDialog(new GlobalClickEventArgs()
                         {
                             NewsFeedClass = PostData,
@@ -384,7 +384,7 @@ namespace WoWonder.Activities.MyPhoto
                         BtnWonder.Click -= BtnWonderOnClick;
 
                     LikeButton.Click += null;
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         LikeButton.LongClick -= null;
                 }
             }
@@ -533,7 +533,7 @@ namespace WoWonder.Activities.MyPhoto
         {
             try
             {
-                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                 {
                     if (PostData.Reaction.Count > 0)
                     {
@@ -631,7 +631,14 @@ namespace WoWonder.Activities.MyPhoto
         {
             try
             {
-                TxtDescription.Text = Methods.FunString.DecodeString(PostData.Orginaltext);
+                if (string.IsNullOrEmpty(PostData.Orginaltext) || string.IsNullOrWhiteSpace(PostData.Orginaltext))
+                {
+                    TxtDescription.Visibility = ViewStates.Gone;
+                }
+                else
+                {
+                    TxtDescription.Text = Methods.FunString.DecodeString(PostData.Orginaltext);
+                }
 
                 if (PostData.IsLiked != null && PostData.IsLiked.Value)
                 {
@@ -662,7 +669,7 @@ namespace WoWonder.Activities.MyPhoto
 
                 TxtCountWoWonder.Text = Methods.FunString.FormatPriceValue(int.Parse(PostData.PostWonders));
 
-                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                 {
                     PostData.Reaction ??= new WoWonderClient.Classes.Posts.Reaction();
 

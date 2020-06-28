@@ -74,9 +74,9 @@
     <AndroidTlsProvider>btls</AndroidTlsProvider>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <JavaMaximumHeapSize>4G</JavaMaximumHeapSize>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <BundleAssemblies>false</BundleAssemblies>
+    <AotAssemblies>true</AotAssemblies>
+    <EnableLLVM>true</EnableLLVM>
+    <BundleAssemblies>true</BundleAssemblies>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <DxExtraArguments>--dex --no-strict --force-jumbo</DxExtraArguments>
     <AndroidMultiDexClassListExtraArgs>--disable-annotation-resolution-workaround</AndroidMultiDexClassListExtraArgs>
@@ -86,10 +86,8 @@
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidPackageFormat>aab</AndroidPackageFormat>
     <AndroidSigningKeyStore>KeyApk\WoWonder.keystore</AndroidSigningKeyStore>
-    <DebugSymbols>true</DebugSymbols>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CircleButton">
@@ -854,9 +852,11 @@
     <AndroidResource Include="Resources\drawable\SharePost.webp" />
     <AndroidResource Include="Resources\drawable\stickerAttach.webp" />
     <AndroidResource Include="Resources\drawable\youtubeIcon.webp" />
+    <AndroidResource Include="Resources\drawable\splashscreen.webp" />
     <AndroidResource Include="Resources\drawable-hdpi\splashscreen.webp" />
     <AndroidResource Include="Resources\drawable-xhdpi\splashscreen.webp" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\splashscreen2.webp" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\splashscreen.webp" />
+    <AndroidResource Include="Resources\drawable\logo.webp" />
     <AndroidResource Include="Resources\drawable-hdpi\logo.webp" />
     <AndroidResource Include="Resources\drawable-xhdpi\logo.webp" />
     <AndroidResource Include="Resources\drawable-xxhdpi\logo.webp" />
@@ -887,7 +887,7 @@
     <AndroidResource Include="Resources\drawable\image1.webp" />
     <AndroidResource Include="Resources\drawable-xxhdpi\image1.webp" />
     <AndroidResource Include="Resources\drawable-xhdpi\image1.webp" />
-    <AndroidResource Include="Resources\drawable\splashscreen.webp" />
+    <AndroidResource Include="Resources\drawable\logoHorizontal.webp" />
   </ItemGroup>
   <ItemGroup>
     <AndroidEnvironment Include="environment.txt" />
@@ -1666,12 +1666,27 @@
     <AndroidResource Include="Resources\layout\GiftDialogtLayout.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\values-pt\strings.xml">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable\logo.webp" />
-    <AndroidResource Include="Resources\drawable\logoHorizontal.webp" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\emoji_angry_face.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\emoji_haha.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\emoji_like.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\emoji_love.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\emoji_sad.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\emoji_wow.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\emoji_angry_face.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\emoji_haha.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\emoji_like.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\emoji_love.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\emoji_sad.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\emoji_wow.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\emoji_angry_face.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\emoji_haha.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\emoji_like.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\emoji_love.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\emoji_sad.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\emoji_wow.png" />
+    <AndroidResource Include="Resources\drawable\comment_rounded_left_layout.xml" />
+    <AndroidResource Include="Resources\drawable\comment_rounded_right_layout.xml" />
+    <AndroidResource Include="Resources\values-pt\strings.xml" />
     <Content Include="Scripts\jquery-3.4.1.intellisense.js" />
   </ItemGroup>
   <ItemGroup>
@@ -1692,9 +1707,6 @@
     </PackageReference>
     <PackageReference Include="Bolts">
       <Version>1.4.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Bubble">
-      <Version>3.0.1</Version>
     </PackageReference>
     <PackageReference Include="Bumptech.Glide.Integration.RecyclerView">
       <Version>1.0.0</Version>

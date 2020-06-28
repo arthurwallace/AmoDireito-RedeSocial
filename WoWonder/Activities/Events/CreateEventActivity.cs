@@ -403,7 +403,7 @@ namespace WoWonder.Activities.Events
                                     EventMainActivity.GetInstance()?.EventTab.MAdapter?.NotifyItemInserted(EventMainActivity.GetInstance().EventTab.MAdapter.EventList.IndexOf(data));
                                 }
                                  
-                                AndHUD.Shared.ShowSuccess(this);
+                                AndHUD.Shared.ShowSuccess(this, "" , MaskType.Clear, TimeSpan.FromSeconds(2));
                                 Finish();
                             }
                         }
@@ -416,10 +416,7 @@ namespace WoWonder.Activities.Events
                                 Snackbar.Make(TxtDescription, errorText, Snackbar.LengthLong).Show();
                             }
                             Methods.DisplayReportResult(this, respond);
-                        } 
-
-                        AndHUD.Shared.Dismiss(this); 
-                       
+                        }                        
                     }
                 }
             }

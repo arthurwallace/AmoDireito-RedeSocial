@@ -52,7 +52,7 @@ namespace WoWonder.Activities.Tabbes.Adapters
                     });
                 if (AppSettings.ShowUserContacts)
                 {
-                    string name = activityContext.GetText(AppSettings.ConnectivitySystem ==1 ? Resource.String.Lbl_Following : Resource.String.Lbl_Friends);
+                    string name = activityContext.GetText(AppSettings.ConnectivitySystem == 1 ? Resource.String.Lbl_Following : Resource.String.Lbl_Friends);
                     SectionList.Add(new SectionItem
                     {
                         Id = 3,
@@ -61,7 +61,7 @@ namespace WoWonder.Activities.Tabbes.Adapters
                         Badgevisibilty = false,
                         Icon = IonIconsFonts.PersonStalker,
                         IconColor = Color.ParseColor("#d80073")
-                    }); 
+                    });
                 }
                 if (AppSettings.ShowPokes)
                     SectionList.Add(new SectionItem
@@ -100,7 +100,7 @@ namespace WoWonder.Activities.Tabbes.Adapters
                         SectionName = activityContext.GetText(Resource.String.Lbl_MyVideos),
                         BadgeCount = 0,
                         Badgevisibilty = false,
-                        Icon = IonIconsFonts.AndroidFilm,  
+                        Icon = IonIconsFonts.AndroidFilm,
                         IconColor = Color.ParseColor("#8e44ad")
                     });
                 if (AppSettings.ShowSavedPost)
@@ -183,6 +183,16 @@ namespace WoWonder.Activities.Tabbes.Adapters
                         Icon = IonIconsFonts.Location,
                         IconColor = Color.ParseColor("#b2c17c")
                     });
+                if (AppSettings.ShowOffers)
+                    SectionList.Add(new SectionItem
+                    {
+                        Id = 82,
+                        SectionName = activityContext.GetText(Resource.String.Lbl_Offers),
+                        BadgeCount = 0,
+                        Badgevisibilty = false,
+                        Icon = IonIconsFonts.Pricetag,
+                        IconColor = Color.ParseColor("#e91e63")
+                    });
                 if (AppSettings.ShowMovies)
                     SectionList.Add(new SectionItem
                     {
@@ -215,7 +225,16 @@ namespace WoWonder.Activities.Tabbes.Adapters
                         Icon = IonIconsFonts.AndroidCheckmarkCircle,
                         IconColor = Color.ParseColor("#ff5991")
                     });
-
+                if (AppSettings.ShowMemories)
+                    SectionList.Add(new SectionItem
+                    {
+                        Id = 80,
+                        SectionName = activityContext.GetText(Resource.String.Lbl_Memories),
+                        BadgeCount = 0,
+                        Badgevisibilty = false,
+                        Icon = IonIconsFonts.IosTimerOutline,
+                        IconColor = Color.ParseColor("#009da0")
+                    });
                 if (AppSettings.ShowFundings)
                     SectionList.Add(new SectionItem
                     {

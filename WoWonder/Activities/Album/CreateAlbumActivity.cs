@@ -322,7 +322,7 @@ namespace WoWonder.Activities.Album
                             {
                                 if (result.Data.PhotoAlbum.Count > 0)
                                 {
-                                    AndHUD.Shared.ShowSuccess(this);
+                                    AndHUD.Shared.ShowSuccess(this, "" , MaskType.Clear, TimeSpan.FromSeconds(2));
 
                                     //AlbumItem >> PostDataObject  
                                     Intent returnIntent = new Intent();
@@ -343,8 +343,6 @@ namespace WoWonder.Activities.Album
 
                             //Methods.DisplayReportResult(this, respond);
                         } 
-
-                        AndHUD.Shared.Dismiss(this);
                     }
                 }
             }

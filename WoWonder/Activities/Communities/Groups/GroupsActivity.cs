@@ -15,11 +15,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Android.Gms.Ads;
 using Android.Graphics;
+using Android.Support.Design.Widget;
 using Bumptech.Glide.Integration.RecyclerView;
 using Bumptech.Glide.Util;
 using WoWonder.Activities.Communities.Adapters;
 using WoWonder.Activities.NativePost.Post;
 using WoWonder.Activities.Search;
+using WoWonder.Activities.Suggested.Groups;
 using WoWonder.Helpers.Ads;
 using WoWonder.Helpers.Controller;
 using WoWonder.Helpers.Model;
@@ -42,10 +44,11 @@ namespace WoWonder.Activities.Communities.Groups
         private LinearLayoutManager LayoutManager;
         private ViewStub EmptyStateLayout;
         private View Inflated;
-        private TextView TxtCreate;
+        private TextView TxtSuggestedGroups;
         private string UserId;
         private AdView MAdView;
         private static GroupsActivity Instance;
+        private FloatingActionButton CreateButton;
 
         #endregion
 
@@ -183,9 +186,13 @@ namespace WoWonder.Activities.Communities.Groups
                 SwipeRefreshLayout.SetBackgroundColor(AppSettings.SetTabDarkTheme ? Color.ParseColor("#282828") : Color.White);
                 MRecycler.SetBackgroundColor(AppSettings.SetTabDarkTheme ? Color.ParseColor("#282828") : Color.White);
 
-                TxtCreate = FindViewById<TextView>(Resource.Id.toolbar_title);
-                TxtCreate.Text = GetString(Resource.String.Lbl_Create);
-                TxtCreate.Visibility = ViewStates.Visible;
+                TxtSuggestedGroups = FindViewById<TextView>(Resource.Id.toolbar_title);
+                TxtSuggestedGroups.Text = GetString(Resource.String.Lbl_SuggestedGroups);
+                TxtSuggestedGroups.Visibility = ViewStates.Visible;
+
+                CreateButton = FindViewById<FloatingActionButton>(Resource.Id.floatingActionButtonView);
+                CreateButton.Visibility = ViewStates.Visible;
+                CreateButton.SetImageResource(Resource.Drawable.ic_add);
 
                 MAdView = FindViewById<AdView>(Resource.Id.adView);
                 AdsGoogle.InitAdView(MAdView, MRecycler);
@@ -247,15 +254,17 @@ namespace WoWonder.Activities.Communities.Groups
                 // true +=  // false -=
                 if (addEvent)
                 {
-                    TxtCreate.Click += TxtCreateOnClick;
+                    TxtSuggestedGroups.Click += TxtSuggestedGroupsOnClick;
                     MAdapter.GroupItemClick += MAdapterOnItemClick;
                     SwipeRefreshLayout.Refresh += SwipeRefreshLayoutOnRefresh;
+                    CreateButton.Click += CreateButtonOnClick;
                 }
                 else
                 {
-                    TxtCreate.Click -= TxtCreateOnClick;
+                    TxtSuggestedGroups.Click -= TxtSuggestedGroupsOnClick;
                     MAdapter.GroupItemClick -= MAdapterOnItemClick;
                     SwipeRefreshLayout.Refresh -= SwipeRefreshLayoutOnRefresh;
+                    CreateButton.Click += CreateButtonOnClick;
                 }
             }
             catch (Exception e)
@@ -276,7 +285,8 @@ namespace WoWonder.Activities.Communities.Groups
                 EmptyStateLayout = null;
                 Inflated = null;
                 Instance = null;
-                TxtCreate = null;
+                CreateButton = null;
+                TxtSuggestedGroups = null;
                 UserId = null;
                 MAdView = null;
             }
@@ -302,6 +312,19 @@ namespace WoWonder.Activities.Communities.Groups
         #endregion
 
         #region Events
+
+        private void TxtSuggestedGroupsOnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var intent = new Intent(this, typeof(SuggestedGroupActivity));
+                StartActivity(intent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
 
         //Refresh
         private void SwipeRefreshLayoutOnRefresh(object sender, EventArgs e)
@@ -336,7 +359,7 @@ namespace WoWonder.Activities.Communities.Groups
         }
 
         //Event Create New Group
-        private void TxtCreateOnClick(object sender, EventArgs e)
+        private void CreateButtonOnClick(object sender, EventArgs e)
         {
             try
             {

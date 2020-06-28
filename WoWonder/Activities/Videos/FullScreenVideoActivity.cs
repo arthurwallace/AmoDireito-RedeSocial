@@ -23,19 +23,24 @@ namespace WoWonder.Activities.Videos
                 base.OnCreate(savedInstanceState);
                 SetTheme(AppSettings.SetTabDarkTheme ? Resource.Style.MyTheme_Dark_Base : Resource.Style.MyTheme_Base);
 
-                var mContentView = Window.DecorView;
-                var uiOptions = (int) mContentView.SystemUiVisibility;
+                // Create your application here
+                //Set Full screen 
+                View mContentView = Window.DecorView;
+                var uiOptions = (int)mContentView.SystemUiVisibility;
                 var newUiOptions = uiOptions;
 
-                newUiOptions |= (int) SystemUiFlags.LowProfile;
-                newUiOptions |= (int) SystemUiFlags.Fullscreen;
-                newUiOptions |= (int) SystemUiFlags.HideNavigation;
-                newUiOptions |= (int) SystemUiFlags.Immersive;
-                mContentView.SystemUiVisibility = (StatusBarVisibility) newUiOptions;
+                newUiOptions |= (int)SystemUiFlags.Fullscreen;
+                newUiOptions |= (int)SystemUiFlags.HideNavigation;
+                mContentView.SystemUiVisibility = (StatusBarVisibility)newUiOptions;
+
+                Window.AddFlags(WindowManagerFlags.Fullscreen);
+
+                //newUiOptions |= (int)SystemUiFlags.LowProfile;
+                //newUiOptions |= (int)SystemUiFlags.Immersive;
 
                 //ScreenOrientation.Portrait >>  Make to run your application only in portrait mode
                 //ScreenOrientation.Landscape >> Make to run your application only in LANDSCAPE mode 
-                RequestedOrientation = ScreenOrientation.Landscape;
+                //RequestedOrientation = ScreenOrientation.Landscape;
 
                 SetContentView(Resource.Layout.FullScreenDialog_Layout);
 

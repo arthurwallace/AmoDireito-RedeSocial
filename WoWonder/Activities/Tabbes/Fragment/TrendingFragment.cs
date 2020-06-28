@@ -122,8 +122,8 @@ namespace WoWonder.Activities.Tabbes.Fragment
                 TxTMoreLastActivities = (TextView)view.FindViewById(Resource.Id.tv_lastactivities);
                 IconMoreLastActivities = (TextView)view.FindViewById(Resource.Id.iv_more_lastactivities);
 
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconMoreLastActivities, IonIconsFonts.ChevronRight);
- 
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconMoreLastActivities, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
+                 
                 LayoutSuggestionProUsers = (LinearLayout)view.FindViewById(Resource.Id.layout_suggestion_Friends);
                 LayoutSuggestionLastActivities = (LinearLayout)view.FindViewById(Resource.Id.layout_suggestion_lastactivities);
                 LayoutFriendRequest = (RelativeLayout)view.FindViewById(Resource.Id.layout_friend_Request);
@@ -148,7 +148,8 @@ namespace WoWonder.Activities.Tabbes.Fragment
                 TxTMoreLastActivities.Click += MoreLastActivitiesOnClick;
                 IconMoreLastActivities.Click += MoreLastActivitiesOnClick;
 
-                AdsGoogle.Ad_AdMobNative(Activity); 
+                var template = view.FindViewById<TemplateView>(Resource.Id.my_template);
+                AdsGoogle.Ad_AdMobNative(Activity , template); 
             }
             catch (Exception e)
             {
@@ -284,10 +285,10 @@ namespace WoWonder.Activities.Tabbes.Fragment
                         }
                         else
                         {
-                            var intent = new Intent(Context, typeof(ViewFullPostActivity));
+                            var intent = new Intent(Activity, typeof(ViewFullPostActivity));
                             intent.PutExtra("Id", item.PostId);
-                            intent.PutExtra("DataItem", JsonConvert.SerializeObject(item.PostData));
-                            Context.StartActivity(intent);
+                            //intent.PutExtra("DataItem", JsonConvert.SerializeObject(item.PostData));
+                            Activity.StartActivity(intent);
                         } 
                     }
                 }

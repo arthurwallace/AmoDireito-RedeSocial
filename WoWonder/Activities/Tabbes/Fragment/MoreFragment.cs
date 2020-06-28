@@ -112,7 +112,7 @@ namespace WoWonder.Activities.Tabbes.Fragment
                 MoreRecylerView = (RecyclerView)view.FindViewById(Resource.Id.Recyler);
                 MoreRecylerView.NestedScrollingEnabled = true;
 
-                if (AppSettings.SetBeautyTheme)
+                if (AppSettings.MoreTheme == MoreTheme.BeautyTheme)
                 {
                     var layoutManager = new GridLayoutManager(Activity, 4);
 
@@ -147,14 +147,14 @@ namespace WoWonder.Activities.Tabbes.Fragment
                 // true +=  // false -=
                 if (addEvent)
                 {
-                    if (AppSettings.SetBeautyTheme)
+                    if (AppSettings.MoreTheme == MoreTheme.BeautyTheme)
                         MoreSectionAdapterTheme2.ItemClick += MoreSection_OnItemClick;
                     else
                         MoreSectionAdapter.ItemClick += MoreSection_OnItemClick;
                 }
                 else
                 {
-                    if (AppSettings.SetBeautyTheme)
+                    if (AppSettings.MoreTheme == MoreTheme.BeautyTheme)
                         MoreSectionAdapterTheme2.ItemClick -= MoreSection_OnItemClick;
                     else
                         MoreSectionAdapter.ItemClick -= MoreSection_OnItemClick;
@@ -182,11 +182,9 @@ namespace WoWonder.Activities.Tabbes.Fragment
                 {
                     var item = MoreSectionAdapter?.GetItem(position);
                     
-                    if (AppSettings.SetBeautyTheme)
+                    if (AppSettings.MoreTheme == MoreTheme.BeautyTheme)
                         item = MoreSectionAdapterTheme2.GetItem(position);
-                   
-
-                        
+                    
                     if (item != null)
                     {
                         if (item.Id == 1) // My Profile

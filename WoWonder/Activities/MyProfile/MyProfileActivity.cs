@@ -72,7 +72,7 @@ namespace WoWonder.Activities.MyProfile
         private LinearLayout LayoutCountFollowers, LayoutCountFollowing, LayoutCountLikes, CountPointsLayout, HeaderSection, WalletSection;
         private CircleImageView OnlineView;
         private View ViewPoints, ViewLikes, ViewFollowers;
-        private string SUrlUser, ImageType;
+        private string SUrlUser, SProType, ImageType;
         private FeedCombiner Combiner;
         #endregion
 
@@ -497,7 +497,7 @@ namespace WoWonder.Activities.MyProfile
                 arrayAdapter.Add(GetText(Resource.String.Lbl_ViewPrivacy));
                 arrayAdapter.Add(GetText(Resource.String.Lbl_SettingsAccount));
 
-                if (ListUtils.SettingsSiteList?.Pro == "1" && AppSettings.ShowGoPro)
+                if (ListUtils.SettingsSiteList?.Pro == "1" && AppSettings.ShowGoPro && SProType != "4")
                     arrayAdapter.Add(GetText(Resource.String.Lbl_upgrade_now));
                  
                 dialogList.Title(Resource.String.Lbl_More);
@@ -677,7 +677,7 @@ namespace WoWonder.Activities.MyProfile
                     textIsPro = " " + IonIconsFonts.Flash;
                     textHighLighter += textIsPro;
                 }
-                  
+                
                 var decorator = TextDecorator.Decorate(TxtUsername, textHighLighter);
 
                 if (result.Verified == "1")
@@ -685,6 +685,8 @@ namespace WoWonder.Activities.MyProfile
 
                 if (result.IsPro == "1")
                     decorator.SetTextColor(Resource.Color.white, textIsPro);
+
+                SProType = result.ProType;
 
                 decorator.Build();
 

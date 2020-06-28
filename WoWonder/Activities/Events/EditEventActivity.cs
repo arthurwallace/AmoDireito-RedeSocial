@@ -433,7 +433,7 @@ namespace WoWonder.Activities.Events
                                     }
                                 }
                                  
-                                AndHUD.Shared.ShowSuccess(this);
+                                AndHUD.Shared.ShowSuccess(this, "" , MaskType.Clear, TimeSpan.FromSeconds(2));
                                 Toast.MakeText(this, GetString(Resource.String.Lbl_EventSuccessfullyEdited), ToastLength.Short).Show();
 
                                 Finish();
@@ -449,9 +449,6 @@ namespace WoWonder.Activities.Events
                             }
                             Methods.DisplayReportResult(this, respond);
                         } 
-
-                        AndHUD.Shared.Dismiss(this);
-
                     }
                 }
             }

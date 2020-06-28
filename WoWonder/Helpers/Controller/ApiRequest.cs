@@ -783,6 +783,7 @@ namespace WoWonder.Helpers.Controller
 
                     await RemoveData("Logout");
 
+                         
                     context.RunOnUiThread(() =>
                     {
                         Methods.Path.DeleteAll_MyFolderDisk();
@@ -813,7 +814,7 @@ namespace WoWonder.Helpers.Controller
                         context.FinishAffinity();
                         context.Finish();
                     });
-
+                     
                     RunLogout = false;
                 }
             }
@@ -835,6 +836,9 @@ namespace WoWonder.Helpers.Controller
 
                 context.DeleteDatabase("WowonderSocial.db");
                 context.DeleteDatabase(SqLiteDatabase.PathCombine);
+
+                Glide.Get(context).ClearDiskCache();
+                Glide.Get(context).ClearMemory(); 
             }
             catch (Exception e)
             {
@@ -907,7 +911,7 @@ namespace WoWonder.Helpers.Controller
 
                 UserDetails.ClearAllValueUserDetails();
 
-                Methods.DeleteNoteOnSD();
+                Methods.DeleteNoteOnSD(); 
 
                 GC.Collect();
             }

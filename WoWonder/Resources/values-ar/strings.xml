@@ -7,7 +7,7 @@
         Example. Movies & Animation >> Movies &amp; Animation   -->
 
   <!--supportsRtl-->
-  <string name="Is_arabic">true</string>
+  <bool name="Is_arabic">true</bool>
   <!--===============================================================-->
 
   <!--Range seeker-->

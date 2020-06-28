@@ -7,6 +7,7 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
+using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Support.V7.Content.Res;
@@ -58,7 +59,7 @@ namespace WoWonder.Library.Anjo
         private List<Reaction> MReactionPack = XReactions.GetReactions();
 
         //Integer variable to change react dialog shape Default value is react_dialog_shape
-        private int MReactDialogShape = Resource.Xml.react_dialog_shape;
+        private int MReactDialogShape = Resource.Xml.react_dialog_shape; 
 
         private GlobalClickEventArgs PostData;
         private string NamePage;
@@ -137,7 +138,7 @@ namespace WoWonder.Library.Anjo
 
                 if (MCurrentReactState)
                 {
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                     {
                         switch (PostData.NewsFeedClass.Reaction.Type)
                         {
@@ -183,7 +184,7 @@ namespace WoWonder.Library.Anjo
 
                     UpdateReactButtonByReaction(MDefaultReaction);
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                     {
                         if (PostData.NewsFeedClass.Reaction == null)
                             PostData.NewsFeedClass.Reaction = new WoWonderClient.Classes.Posts.Reaction();
@@ -232,7 +233,7 @@ namespace WoWonder.Library.Anjo
                             foreach (var dataClass in from dataClass in dataGlobal let index = nativeFeedAdapter.ListDiffer.IndexOf(dataClass) where index > -1 select dataClass)
                             {
                                 dataClass.PostData = postData.NewsFeedClass;
-                                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                                     dataClass.PostData.PostLikes = PostData.NewsFeedClass.Reaction.Count + " " + Application.Context.Resources.GetString(Resource.String.Btn_Likes);
                                 else
                                     dataClass.PostData.PostLikes = PostData.NewsFeedClass.PostLikes + " " + Application.Context.Resources.GetString(Resource.String.Btn_Likes);
@@ -243,7 +244,7 @@ namespace WoWonder.Library.Anjo
                         var likeCount = PostData.View?.FindViewById<TextView>(Resource.Id.Likecount);
                         if (likeCount != null)
                         {
-                            if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                            if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                             {
                                 likeCount.Text = PostData.NewsFeedClass.Reaction.Count + " " + Application.Context.Resources.GetString(Resource.String.Btn_Likes);
                             }
@@ -253,8 +254,8 @@ namespace WoWonder.Library.Anjo
                             }
                         }
                     }
-                     
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         PollyController.RunRetryPolicyFunction(new List<Func<Task>> { () => RequestsAsync.Global.Post_Actions(PostData.NewsFeedClass.PostId,"reaction") });
                     else
                         PollyController.RunRetryPolicyFunction(new List<Func<Task>> { () => RequestsAsync.Global.Post_Actions(PostData.NewsFeedClass.PostId, "like") });
@@ -263,7 +264,7 @@ namespace WoWonder.Library.Anjo
                 {
                     UpdateReactButtonByReaction(MReactionPack[0]);
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                     {
                         PostData.NewsFeedClass.Reaction ??= new WoWonderClient.Classes.Posts.Reaction();
 
@@ -302,7 +303,7 @@ namespace WoWonder.Library.Anjo
                             foreach (var dataClass in from dataClass in dataGlobal let index = nativeFeedAdapter.ListDiffer.IndexOf(dataClass) where index > -1 select dataClass)
                             {
                                 dataClass.PostData = postData.NewsFeedClass;
-                                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                                     dataClass.PostData.PostLikes = PostData.NewsFeedClass.Reaction.Count + " " + Application.Context.Resources.GetString(Resource.String.Btn_Likes);
                                 else
                                     dataClass.PostData.PostLikes = PostData.NewsFeedClass.PostLikes + " " + Application.Context.Resources.GetString(Resource.String.Btn_Likes);
@@ -313,7 +314,7 @@ namespace WoWonder.Library.Anjo
                         var likeCount = PostData.View?.FindViewById<TextView>(Resource.Id.Likecount);
                         if (likeCount != null)
                         {
-                            if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                            if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                             {
                                 likeCount.Text = PostData.NewsFeedClass.Reaction.Count + " " + Application.Context.Resources.GetString(Resource.String.Btn_Likes);
                             }
@@ -324,7 +325,7 @@ namespace WoWonder.Library.Anjo
                         }
                     }
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                     {
                         string like = ListUtils.SettingsSiteList?.PostReactionsTypes?.FirstOrDefault(a => a.Value?.Name == "Like").Value?.Id ?? "1"; 
                         PollyController.RunRetryPolicyFunction(new List<Func<Task>> { () => RequestsAsync.Global.Post_Actions(PostData.NewsFeedClass.PostId, "reaction", like) });
@@ -422,19 +423,38 @@ namespace WoWonder.Library.Anjo
         /// <param name="view">View Object to initialize all ImagesButton</param>
         private void InitializingReactImages(View view)
         {
-            MImgButtonOne = view.FindViewById<ImageView>(Resource.Id.imgButtonOne);
-            MImgButtonTwo = view.FindViewById<ImageView>(Resource.Id.imgButtonTwo);
-            MImgButtonThree = view.FindViewById<ImageView>(Resource.Id.imgButtonThree);
-            MImgButtonFour = view.FindViewById<ImageView>(Resource.Id.imgButtonFour);
-            MImgButtonFive = view.FindViewById<ImageView>(Resource.Id.imgButtonFive);
-            MImgButtonSix = view.FindViewById<ImageView>(Resource.Id.imgButtonSix);
-
-            Glide.With(Context).Load(Resource.Drawable.like).Apply(new RequestOptions().FitCenter()).Into(MImgButtonOne);
-            Glide.With(Context).Load(Resource.Drawable.love).Apply(new RequestOptions().FitCenter()).Into(MImgButtonTwo);
-            Glide.With(Context).Load(Resource.Drawable.haha).Apply(new RequestOptions().FitCenter()).Into(MImgButtonThree);
-            Glide.With(Context).Load(Resource.Drawable.wow).Apply(new RequestOptions().FitCenter()).Into(MImgButtonFour);
-            Glide.With(Context).Load(Resource.Drawable.sad).Apply(new RequestOptions().FitCenter()).Into(MImgButtonFive);
-            Glide.With(Context).Load(Resource.Drawable.angry).Apply(new RequestOptions().FitCenter()).Into(MImgButtonSix);
+            try
+            {
+                MImgButtonOne = view.FindViewById<ImageView>(Resource.Id.imgButtonOne);
+                MImgButtonTwo = view.FindViewById<ImageView>(Resource.Id.imgButtonTwo);
+                MImgButtonThree = view.FindViewById<ImageView>(Resource.Id.imgButtonThree);
+                MImgButtonFour = view.FindViewById<ImageView>(Resource.Id.imgButtonFour);
+                MImgButtonFive = view.FindViewById<ImageView>(Resource.Id.imgButtonFive);
+                MImgButtonSix = view.FindViewById<ImageView>(Resource.Id.imgButtonSix);
+                 
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault)
+                {
+                    Glide.With(Context).Load(Resource.Drawable.emoji_like).Apply(new RequestOptions().FitCenter()).Into(MImgButtonOne);
+                    Glide.With(Context).Load(Resource.Drawable.emoji_love).Apply(new RequestOptions().FitCenter()).Into(MImgButtonTwo);
+                    Glide.With(Context).Load(Resource.Drawable.emoji_haha).Apply(new RequestOptions().FitCenter()).Into(MImgButtonThree);
+                    Glide.With(Context).Load(Resource.Drawable.emoji_wow).Apply(new RequestOptions().FitCenter()).Into(MImgButtonFour);
+                    Glide.With(Context).Load(Resource.Drawable.emoji_sad).Apply(new RequestOptions().FitCenter()).Into(MImgButtonFive);
+                    Glide.With(Context).Load(Resource.Drawable.emoji_angry_face).Apply(new RequestOptions().FitCenter()).Into(MImgButtonSix);
+                }
+                else if (AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
+                {
+                    Glide.With(Context).Load(Resource.Drawable.like).Apply(new RequestOptions().FitCenter()).Into(MImgButtonOne);
+                    Glide.With(Context).Load(Resource.Drawable.love).Apply(new RequestOptions().FitCenter()).Into(MImgButtonTwo);
+                    Glide.With(Context).Load(Resource.Drawable.haha).Apply(new RequestOptions().FitCenter()).Into(MImgButtonThree);
+                    Glide.With(Context).Load(Resource.Drawable.wow).Apply(new RequestOptions().FitCenter()).Into(MImgButtonFour);
+                    Glide.With(Context).Load(Resource.Drawable.sad).Apply(new RequestOptions().FitCenter()).Into(MImgButtonFive);
+                    Glide.With(Context).Load(Resource.Drawable.angry).Apply(new RequestOptions().FitCenter()).Into(MImgButtonSix);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -570,7 +590,7 @@ namespace WoWonder.Library.Anjo
                             foreach (var dataClass in from dataClass in dataGlobal let index = NativeFeedAdapter.ListDiffer.IndexOf(dataClass) where index > -1 select dataClass)
                             {
                                 dataClass.PostData = PostData.NewsFeedClass;
-                                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                                     dataClass.PostData.PostLikes = PostData.NewsFeedClass.Reaction.Count + " " + Application.Context.Resources.GetString(Resource.String.Btn_Likes);
                                 else
                                     dataClass.PostData.PostLikes = PostData.NewsFeedClass.PostLikes + " " + Application.Context.Resources.GetString(Resource.String.Btn_Likes);
@@ -685,35 +705,77 @@ namespace WoWonder.Library.Anjo
                     
                 //Drawable icon = Build.VERSION.SdkInt < BuildVersionCodes.Lollipop ? VectorDrawableCompat.Create(Context.Resources, react.GetReactIconId(), Context.Theme) : AppCompatResources.GetDrawable(Context,react.GetReactIconId());
 
-                Drawable icon;
+                Drawable icon = AppCompatResources.GetDrawable(Context, react.GetReactIconId());
                 if (MReactButton.Text == ReactConstants.Like)
                 {
-                    icon = AppCompatResources.GetDrawable(Context, react.GetReactType() == ReactConstants.Default ? Resource.Drawable.icon_post_like_vector  : Resource.Drawable.like);  //ic_action_like
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, react.GetReactType() == ReactConstants.Default ? Resource.Drawable.icon_post_like_vector : Resource.Drawable.emoji_like);  //ic_action_like
+                    }
+                    else if (AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, react.GetReactType() == ReactConstants.Default ? Resource.Drawable.icon_post_like_vector : Resource.Drawable.like);  //ic_action_like
+                    }
 
                     if (react.GetReactType() == ReactConstants.Default)
                     {
-                        icon.SetTint(Color.ParseColor(AppSettings.SetTabDarkTheme ? "#ffffff" : "#888888"));
+                        icon?.SetTint(Color.ParseColor(AppSettings.SetTabDarkTheme ? "#ffffff" : "#888888"));
                     }
                 }
                 else if (MReactButton.Text == ReactConstants.Love)
                 {
-                    icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.love);
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.emoji_love);
+                    }
+                    else if (AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.love);
+                    } 
                 }
                 else if (MReactButton.Text == ReactConstants.HaHa)
                 {
-                    icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.haha);
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.emoji_haha);
+                    }
+                    else if (AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.haha);
+                    } 
                 }
                 else if (MReactButton.Text == ReactConstants.Wow)
                 {
-                    icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.wow);
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.emoji_wow);
+                    }
+                    else if (AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.wow);
+                    }
                 }
                 else if (MReactButton.Text == ReactConstants.Sad)
                 {
-                    icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.sad);
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.emoji_sad);
+                    }
+                    else if (AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.sad);
+                    }
                 }
                 else if (MReactButton.Text == ReactConstants.Angry)
                 {
-                    icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.angry);
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.emoji_angry_face);
+                    }
+                    else if (AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
+                    {
+                        icon = AppCompatResources.GetDrawable(Context, Resource.Drawable.angry);
+                    }
                 }
                 else
                 {
@@ -807,14 +869,14 @@ namespace WoWonder.Library.Anjo
         protected override void OnDraw(Canvas canvas)
         {
             try
-            { 
-                if (IsDefaultReaction())
+            {
+                if ((int)Build.VERSION.SdkInt <= 25)
                 {
-                    MIconSize = 50;
+                    MIconSize = IsDefaultReaction() ? 25 : 40;
                 }
                 else
                 {
-                    MIconSize = 70;
+                    MIconSize = IsDefaultReaction() ? 50 : 70;
                 }
                   
                 int shift = (MIconSize + MIconPadding) / 2;
@@ -831,6 +893,7 @@ namespace WoWonder.Library.Anjo
                     int top = Height / 2 - MIconSize / 2;
 
                     Rect destRect = new Rect(left, top, left + MIconSize, top + MIconSize);
+
                     canvas.DrawBitmap(MIcon, MSrcRect, destRect, MPaint);
                 }
 
@@ -847,8 +910,7 @@ namespace WoWonder.Library.Anjo
             try
             {
                 MIcon = DrawableToBitmap(drawable);
-
-                //If we didn't supply an icon in the XML
+                
                 if (MIcon != null)
                 {
                     MPaint = new Paint();

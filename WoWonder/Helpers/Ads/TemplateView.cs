@@ -77,125 +77,131 @@ namespace WoWonder.Helpers.Ads
 
         private void ApplyStyles()
         {
-
-            Drawable mainBackground = Styles.GetMainBackgroundColor();
-            if (mainBackground != null)
+            try
             {
-                Background.Background = mainBackground;
-                if (PrimaryView != null)
+                Drawable mainBackground = Styles.GetMainBackgroundColor();
+                if (mainBackground != null)
                 {
-                    PrimaryView.Background = mainBackground;
+                    Background.Background = mainBackground;
+                    if (PrimaryView != null)
+                    {
+                        PrimaryView.Background = mainBackground;
+                    }
+
+                    if (SecondaryView != null)
+                    {
+                        SecondaryView.Background = mainBackground;
+                    }
+
+                    if (TertiaryView != null)
+                    {
+                        TertiaryView.Background = mainBackground;
+                    }
                 }
 
-                if (SecondaryView != null)
+                Typeface primary = Styles.GetPrimaryTextTypeface();
+                if (primary != null)
                 {
-                    SecondaryView.Background = mainBackground;
+                    PrimaryView?.SetTypeface(primary, TypefaceStyle.Normal);
                 }
 
-                if (TertiaryView != null)
+                Typeface secondary = Styles.GetSecondaryTextTypeface();
+                if (secondary != null)
                 {
-                    TertiaryView.Background = mainBackground;
+                    SecondaryView?.SetTypeface(secondary, TypefaceStyle.Normal);
                 }
-            }
 
-            Typeface primary = Styles.GetPrimaryTextTypeface();
-            if (primary != null)
+                Typeface tertiary = Styles.GetTertiaryTextTypeface();
+                if (tertiary != null)
+                {
+                    TertiaryView?.SetTypeface(tertiary, TypefaceStyle.Normal);
+                }
+
+                //Typeface ctaTypeface = Styles.GetCallToActionTextTypeface();
+                //if (ctaTypeface != null)
+                //{
+                //    CallToActionView?.SetTypeface(ctaTypeface, TypefaceStyle.Normal);
+                //}
+
+                Color primaryTypefaceColor = Styles.GetPrimaryTextTypefaceColor();
+                if (primaryTypefaceColor > 0)
+                {
+                    PrimaryView?.SetTextColor(primaryTypefaceColor);
+                }
+
+                Color secondaryTypefaceColor = Styles.GetSecondaryTextTypefaceColor();
+                if (secondaryTypefaceColor > 0)
+                {
+                    SecondaryView?.SetTextColor(secondaryTypefaceColor);
+                }
+
+                Color tertiaryTypefaceColor = Styles.GetTertiaryTextTypefaceColor();
+                if (tertiaryTypefaceColor > 0)
+                {
+                    TertiaryView?.SetTextColor(tertiaryTypefaceColor);
+                }
+
+                //var ctaTypefaceColor = Styles.GetCallToActionTypefaceColor();
+                //if (ctaTypefaceColor > 0)
+                //{
+                //    CallToActionView?.SetTextColor(ctaTypefaceColor);
+                //}
+
+                //float ctaTextSize = Styles.GetCallToActionTextSize();
+                //if (ctaTextSize > 0)
+                //{
+                //    CallToActionView?.SetTextSize(ComplexUnitType.Sp, ctaTextSize);
+                //}
+
+                float primaryTextSize = Styles.GetPrimaryTextSize();
+                if (primaryTextSize > 0)
+                {
+                    PrimaryView?.SetTextSize(ComplexUnitType.Sp, primaryTextSize);
+                }
+
+                float secondaryTextSize = Styles.GetSecondaryTextSize();
+                if (secondaryTextSize > 0)
+                {
+                    SecondaryView?.SetTextSize(ComplexUnitType.Sp, secondaryTextSize);
+                }
+
+                float tertiaryTextSize = Styles.GetTertiaryTextSize();
+                if (tertiaryTextSize > 0)
+                {
+                    TertiaryView?.SetTextSize(ComplexUnitType.Sp, tertiaryTextSize);
+                }
+
+                //Drawable ctaBackground = Styles.GetCallToActionBackgroundColor();
+                //if (ctaBackground != null && CallToActionView != null)
+                //{
+                //    CallToActionView.Background = ctaBackground;
+                //}
+
+                Drawable primaryBackground = Styles.GetPrimaryTextBackgroundColor();
+                if (primaryBackground != null && PrimaryView != null)
+                {
+                    PrimaryView.Background = primaryBackground;
+                }
+
+                Drawable secondaryBackground = Styles.GetSecondaryTextBackgroundColor();
+                if (secondaryBackground != null && SecondaryView != null)
+                {
+                    SecondaryView.Background = secondaryBackground;
+                }
+
+                Drawable tertiaryBackground = Styles.GetTertiaryTextBackgroundColor();
+                if (tertiaryBackground != null && TertiaryView != null)
+                {
+                    TertiaryView.Background = tertiaryBackground;
+                }
+
+                Invalidate();
+                RequestLayout();
+            }
+            catch (Exception e)
             {
-                PrimaryView?.SetTypeface(primary, TypefaceStyle.Normal);
-            }
-
-            Typeface secondary = Styles.GetSecondaryTextTypeface();
-            if (secondary != null)
-            {
-                SecondaryView?.SetTypeface(secondary, TypefaceStyle.Normal);
-            }
-
-            Typeface tertiary = Styles.GetTertiaryTextTypeface();
-            if (tertiary != null)
-            {
-                TertiaryView?.SetTypeface(tertiary, TypefaceStyle.Normal);
-            }
-
-            //Typeface ctaTypeface = Styles.GetCallToActionTextTypeface();
-            //if (ctaTypeface != null)
-            //{
-            //    CallToActionView?.SetTypeface(ctaTypeface, TypefaceStyle.Normal);
-            //}
-
-            Color primaryTypefaceColor = Styles.GetPrimaryTextTypefaceColor();
-            if (primaryTypefaceColor > 0)
-            {
-                PrimaryView?.SetTextColor(primaryTypefaceColor);
-            }
-
-            Color secondaryTypefaceColor = Styles.GetSecondaryTextTypefaceColor();
-            if (secondaryTypefaceColor > 0)
-            {
-                SecondaryView?.SetTextColor(secondaryTypefaceColor);
-            }
-
-            Color tertiaryTypefaceColor = Styles.GetTertiaryTextTypefaceColor();
-            if (tertiaryTypefaceColor > 0)
-            {
-                TertiaryView?.SetTextColor(tertiaryTypefaceColor);
-            }
-
-            //var ctaTypefaceColor = Styles.GetCallToActionTypefaceColor();
-            //if (ctaTypefaceColor > 0)
-            //{
-            //    CallToActionView?.SetTextColor(ctaTypefaceColor);
-            //}
-
-            //float ctaTextSize = Styles.GetCallToActionTextSize();
-            //if (ctaTextSize > 0)
-            //{
-            //    CallToActionView?.SetTextSize(ComplexUnitType.Sp, ctaTextSize);
-            //}
-
-            float primaryTextSize = Styles.GetPrimaryTextSize();
-            if (primaryTextSize > 0)
-            {
-                PrimaryView?.SetTextSize(ComplexUnitType.Sp, primaryTextSize);
-            }
-
-            float secondaryTextSize = Styles.GetSecondaryTextSize();
-            if (secondaryTextSize > 0)
-            {
-                SecondaryView?.SetTextSize(ComplexUnitType.Sp, secondaryTextSize);
-            }
-
-            float tertiaryTextSize = Styles.GetTertiaryTextSize();
-            if (tertiaryTextSize > 0)
-            {
-                TertiaryView?.SetTextSize(ComplexUnitType.Sp, tertiaryTextSize);
-            }
-
-            //Drawable ctaBackground = Styles.GetCallToActionBackgroundColor();
-            //if (ctaBackground != null && CallToActionView != null)
-            //{
-            //    CallToActionView.Background = ctaBackground;
-            //}
-
-            Drawable primaryBackground = Styles.GetPrimaryTextBackgroundColor();
-            if (primaryBackground != null && PrimaryView != null)
-            {
-                PrimaryView.Background = primaryBackground;
-            }
-
-            Drawable secondaryBackground = Styles.GetSecondaryTextBackgroundColor();
-            if (secondaryBackground != null && SecondaryView != null)
-            {
-                SecondaryView.Background = secondaryBackground;
-            }
-
-            Drawable tertiaryBackground = Styles.GetTertiaryTextBackgroundColor();
-            if (tertiaryBackground != null && TertiaryView != null)
-            {
-                TertiaryView.Background = tertiaryBackground;
-            }
-
-            Invalidate();
-            RequestLayout();
+                Console.WriteLine(e);
+            } 
         }
 
         private bool AdHasOnlyStore(UnifiedNativeAd nativeAd)
@@ -207,86 +213,93 @@ namespace WoWonder.Helpers.Ads
 
         public void SetNativeAd(UnifiedNativeAd nativeAd)
         {
-            NativeAd = nativeAd;
-
-            string store = nativeAd.Store;
-            string advertiser = nativeAd.Advertiser;
-            string headline = nativeAd.Headline;
-            string body = nativeAd.Body;
-            //string cta = nativeAd.CallToAction;
-            //int starRating = Convert.ToInt32(nativeAd.StarRating);
-            NativeAd.Image icon = nativeAd.Icon;
-
-            string secondaryText;
-
-            //NativeAdView.CallToActionView=CallToActionView;
-            NativeAdView.HeadlineView = PrimaryView;
-            NativeAdView.MediaView = MediaView;
-            SecondaryView.Visibility = ViewStates.Visible;
-            if (AdHasOnlyStore(nativeAd))
+            try
             {
-                NativeAdView.StoreView = SecondaryView;
-                secondaryText = store;
-            }
-            else if (!TextUtils.IsEmpty(advertiser))
-            {
-                NativeAdView.AdvertiserView = SecondaryView;
-                secondaryText = advertiser;
-            }
-            else
-            {
-                secondaryText = "";
-            }
+                NativeAd = nativeAd;
 
-            PrimaryView.Text = headline;
-            //CallToActionView.Text=cta;
+                string store = nativeAd.Store;
+                string advertiser = nativeAd.Advertiser;
+                string headline = nativeAd.Headline;
+                string body = nativeAd.Body;
+                //string cta = nativeAd.CallToAction;
+                //int starRating = Convert.ToInt32(nativeAd.StarRating);
+                NativeAd.Image icon = nativeAd.Icon;
 
-            //  Set the secondary view to be the star rating if available.
-            //if (starRating > 0)
-            //{
-            //    SecondaryView.Visibility=ViewStates.Gone;
-            //    RatingBar.Visibility = ViewStates.Visible;
-            //    RatingBar.Max=5;
-            //    NativeAdView.StarRatingView=RatingBar;
-            //}
-            //else
-            //{
-            //    SecondaryView.Text=secondaryText;
-            //    SecondaryView.Visibility = ViewStates.Visible;
-            //    RatingBar.Visibility= ViewStates.Gone;
-            //}
+                string secondaryText;
 
-            if (string.IsNullOrEmpty(secondaryText))
-            {
-                SecondaryView.Visibility = ViewStates.Gone;
-            }
-            else
-            {
+                //NativeAdView.CallToActionView=CallToActionView;
+                NativeAdView.HeadlineView = PrimaryView;
+                NativeAdView.MediaView = MediaView;
                 SecondaryView.Visibility = ViewStates.Visible;
-                SecondaryView.Text = secondaryText;
-            }
+                if (AdHasOnlyStore(nativeAd))
+                {
+                    NativeAdView.StoreView = SecondaryView;
+                    secondaryText = store;
+                }
+                else if (!TextUtils.IsEmpty(advertiser))
+                {
+                    NativeAdView.AdvertiserView = SecondaryView;
+                    secondaryText = advertiser;
+                }
+                else
+                {
+                    secondaryText = "";
+                }
 
-            if (icon != null)
-            {
-                IconView.Visibility = ViewStates.Visible;
-                IconView.SetImageDrawable(icon.Drawable);
-            }
-            else
-            {
-                IconView.Visibility = ViewStates.Gone;
-            }
+                PrimaryView.Text = headline;
+                //CallToActionView.Text=cta;
 
-            if (TertiaryView != null && !string.IsNullOrEmpty(body))
-            {
-                TertiaryView.Text = body;
-                NativeAdView.BodyView = TertiaryView;
-            }
-            else if (TertiaryView != null)
-            {
-                TertiaryView.Visibility = ViewStates.Gone;
-            }
+                //  Set the secondary view to be the star rating if available.
+                //if (starRating > 0)
+                //{
+                //    SecondaryView.Visibility=ViewStates.Gone;
+                //    RatingBar.Visibility = ViewStates.Visible;
+                //    RatingBar.Max=5;
+                //    NativeAdView.StarRatingView=RatingBar;
+                //}
+                //else
+                //{
+                //    SecondaryView.Text=secondaryText;
+                //    SecondaryView.Visibility = ViewStates.Visible;
+                //    RatingBar.Visibility= ViewStates.Gone;
+                //}
 
-            NativeAdView.SetNativeAd(nativeAd);
+                if (string.IsNullOrEmpty(secondaryText))
+                {
+                    SecondaryView.Visibility = ViewStates.Gone;
+                }
+                else
+                {
+                    SecondaryView.Visibility = ViewStates.Visible;
+                    SecondaryView.Text = secondaryText;
+                }
+
+                if (icon != null)
+                {
+                    IconView.Visibility = ViewStates.Visible;
+                    IconView.SetImageDrawable(icon.Drawable);
+                }
+                else
+                {
+                    IconView.Visibility = ViewStates.Gone;
+                }
+
+                if (TertiaryView != null && !string.IsNullOrEmpty(body))
+                {
+                    TertiaryView.Text = body;
+                    NativeAdView.BodyView = TertiaryView;
+                }
+                else if (TertiaryView != null)
+                {
+                    TertiaryView.Visibility = ViewStates.Gone;
+                }
+
+                NativeAdView.SetNativeAd(nativeAd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -330,48 +343,61 @@ namespace WoWonder.Helpers.Ads
 
         private void InitView(Context context, IAttributeSet attributeSet)
         {
-
-            TypedArray attributes = context.Theme.ObtainStyledAttributes(attributeSet, Resource.Styleable.TemplateView, 0, 0);
-
             try
             {
-                TemplateType = attributes.GetResourceId(Resource.Styleable.TemplateView_gnt_template_type, Resource.Layout.gnt_medium_template_view);
-            }
-            finally
-            {
-                attributes.Recycle();
-            }
+                TypedArray attributes = context.Theme.ObtainStyledAttributes(attributeSet, Resource.Styleable.TemplateView, 0, 0);
 
-            LayoutInflater inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
-            inflater.Inflate(TemplateType, this);
+                try
+                {
+                    TemplateType = attributes.GetResourceId(Resource.Styleable.TemplateView_gnt_template_type, Resource.Layout.gnt_medium_template_view);
+                }
+                finally
+                {
+                    attributes.Recycle();
+                }
+
+                LayoutInflater inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
+                inflater.Inflate(TemplateType, this);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         protected override void OnFinishInflate()
         {
-            base.OnFinishInflate();
-
-            NativeAdView = (UnifiedNativeAdView)FindViewById(Resource.Id.native_ad_view);
-
-            if (!AppSettings.ShowAdMobNative)
+            try
             {
-                NativeAdView.Visibility = ViewStates.Gone;
-            }
-            else
-            {
-                if (TemplateType != Resource.Layout.gnt_big_template_view)
+                base.OnFinishInflate();
+
+                NativeAdView = (UnifiedNativeAdView)FindViewById(Resource.Id.native_ad_view);
+
+                if (!AppSettings.ShowAdMobNative)
                 {
-                    PrimaryView = (TextView)FindViewById(Resource.Id.primary);
-                    SecondaryView = (TextView)FindViewById(Resource.Id.secondary);
-                    TertiaryView = (TextView)FindViewById(Resource.Id.body);
-
-                    //RatingBar = (RatingBar)FindViewById(Resource.Id.rating_bar);
-                    //RatingBar.Enabled=false;
-
-                    //CallToActionView = (Button)FindViewById(Resource.Id.cta);
-                    IconView = (ImageView)FindViewById(Resource.Id.icon);
-                    MediaView = (MediaView)FindViewById(Resource.Id.media_view);
-                    Background = (ConstraintLayout)FindViewById(Resource.Id.background);
+                    if (NativeAdView != null) NativeAdView.Visibility = ViewStates.Gone;
                 }
+                else
+                {
+                    if (TemplateType != Resource.Layout.gnt_big_template_view)
+                    {
+                        PrimaryView = (TextView)FindViewById(Resource.Id.primary);
+                        SecondaryView = (TextView)FindViewById(Resource.Id.secondary);
+                        TertiaryView = (TextView)FindViewById(Resource.Id.body);
+
+                        //RatingBar = (RatingBar)FindViewById(Resource.Id.rating_bar);
+                        //RatingBar.Enabled=false;
+
+                        //CallToActionView = (Button)FindViewById(Resource.Id.cta);
+                        IconView = (ImageView)FindViewById(Resource.Id.icon);
+                        MediaView = (MediaView)FindViewById(Resource.Id.media_view);
+                        Background = (ConstraintLayout)FindViewById(Resource.Id.background);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
 

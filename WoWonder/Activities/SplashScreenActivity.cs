@@ -17,7 +17,7 @@ using Exception = System.Exception;
 
 namespace WoWonder.Activities
 {
-    [Activity(Icon = "@mipmap/icon", Theme = "@style/SplashScreenTheme", NoHistory = true, MainLauncher = true, ConfigurationChanges = ConfigChanges.Locale | ConfigChanges.UiMode | ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Icon = "@mipmap/icon", Theme = "@style/SplashScreenTheme", ScreenOrientation = ScreenOrientation.Portrait, NoHistory = true, MainLauncher = true, ConfigurationChanges = ConfigChanges.Locale | ConfigChanges.UiMode | ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class SplashScreenActivity : AppCompatActivity
     {
         private SqLiteDatabase DbDatabase;

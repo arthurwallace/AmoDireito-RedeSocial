@@ -439,8 +439,6 @@ namespace WoWonder.Activities.Communities.Groups.Settings
 
                         AndHUD.Shared.ShowSuccess(this, GetText(Resource.String.Lbl_YourGroupWasUpdated), MaskType.Clear, TimeSpan.FromSeconds(2));
 
-                        AndHUD.Shared.ShowSuccess(this);
-
                         Intent returnIntent = new Intent();
                         returnIntent.PutExtra("groupItem", JsonConvert.SerializeObject(GroupData));
                         SetResult(Result.Ok, returnIntent);
@@ -458,9 +456,6 @@ namespace WoWonder.Activities.Communities.Groups.Settings
                     }
                     //Methods.DisplayReportResult(this, respond);
                 }
-
-                AndHUD.Shared.Dismiss(this);
-
             }
             catch (Exception exception)
             {

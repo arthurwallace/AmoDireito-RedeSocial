@@ -35,8 +35,8 @@
         android:layout_height="45dp"
         android:gravity="center_vertical">
       <ImageView
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:id="@+id/badge"
         android:gravity="end|center"
         android:layout_gravity="end|center"

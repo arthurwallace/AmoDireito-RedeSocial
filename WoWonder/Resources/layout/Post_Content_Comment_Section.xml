@@ -18,19 +18,13 @@
         android:layout_marginTop="8dp"
         app:civ_border_width="1dp"
         app:civ_border_color="@color/textLight_color" />
-    <com.github.library.bubbleview.BubbleLinearLayout
-        android:orientation="vertical"
-        app:arrowWidth="9dp"
-        app:angle="10dp"
-        app:arrowHeight="10dp"
-        app:arrowPosition="10dp"
-        app:arrowLocation="left"
+    <LinearLayout
+        android:orientation="vertical" 
         android:layout_marginBottom="2dp"
         android:layout_centerVertical="true"
-        app:arrowCenter="false"
-        android:minWidth="100dp"
-        app:bubbleColor="?attr/colorBubble"
-        android:layout_toEndOf="@id/card_pro_pic"
+        android:background="@drawable/comment_rounded_left_layout"
+        android:minWidth="100dp" 
+        android:layout_toEndOf="@id/card_pro_pic" 
         android:id="@+id/bubble_layout"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="4dp"
@@ -70,7 +64,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="18dp"
             android:paddingBottom="3dp" />
-    </com.github.library.bubbleview.BubbleLinearLayout>
+    </LinearLayout>
     <TextView
         android:layout_below="@+id/bubble_layout"
         android:layout_toEndOf="@id/card_pro_pic"

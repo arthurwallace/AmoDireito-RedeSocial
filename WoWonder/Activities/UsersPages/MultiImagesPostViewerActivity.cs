@@ -275,7 +275,8 @@ namespace WoWonder.Activities.UsersPages
 
                 switch (AppSettings.PostButton)
                 {
-                    case PostButtonSystem.Reaction:
+                    case PostButtonSystem.ReactionDefault:
+                    case PostButtonSystem.ReactionSubShine:
                     case PostButtonSystem.Like:
                         MainSectionButton.WeightSum = 3;
                         BtnWonder.Visibility = ViewStates.Gone;
@@ -365,7 +366,7 @@ namespace WoWonder.Activities.UsersPages
                         View = TxtCountLike,
                     }, null, "MultiImagesPostViewerActivity");
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         LikeButton.LongClick += (sender, args) => LikeButton.LongClickDialog(new GlobalClickEventArgs()
                         {
                             NewsFeedClass = PostData,
@@ -385,7 +386,7 @@ namespace WoWonder.Activities.UsersPages
                         BtnWonder.Click -= BtnWonderOnClick;
 
                     LikeButton.Click += null;
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                         LikeButton.LongClick -= null;
                 }
             }
@@ -548,7 +549,7 @@ namespace WoWonder.Activities.UsersPages
         {
             try
             {
-                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                 {
                     if (PostData.Reaction.Count > 0)
                     {
@@ -615,8 +616,15 @@ namespace WoWonder.Activities.UsersPages
                     ViewPager.Adapter = new TouchImageAdapter(this, new ObservableCollection<PhotoAlbumObject>(photos));
                     ViewPager.CurrentItem = IndexImage;
                     ViewPager.Adapter.NotifyDataSetChanged();
-                    
-                    TxtDescription.Text = Methods.FunString.DecodeString(PostData.Orginaltext);
+
+                    if (string.IsNullOrEmpty(PostData.Orginaltext) || string.IsNullOrWhiteSpace(PostData.Orginaltext))
+                    {
+                        TxtDescription.Visibility = ViewStates.Gone;
+                    }
+                    else
+                    {
+                        TxtDescription.Text = Methods.FunString.DecodeString(PostData.Orginaltext);
+                    }
 
                     if (PostData.IsLiked != null && PostData.IsLiked.Value)
                     {
@@ -647,7 +655,7 @@ namespace WoWonder.Activities.UsersPages
 
                     TxtCountWoWonder.Text = Methods.FunString.FormatPriceValue(int.Parse(PostData.PostWonders));
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                     {
                         PostData.Reaction ??= new WoWonderClient.Classes.Posts.Reaction();
 

@@ -210,7 +210,8 @@ namespace WoWonder.Activities.SettingsPreferences.TellFriend
 
                     switch (AppSettings.PostButton)
                     {
-                        case PostButtonSystem.Reaction:
+                        case PostButtonSystem.ReactionDefault:
+                        case PostButtonSystem.ReactionSubShine:
                             FontUtils.SetTextViewIcon(FontsIconFrameWork.FontAwesomeRegular, IconReactingPoint, FontAwesomeIcon.Smile);
                             CircleReactingPoint.SetTextColor(Color.ParseColor("#FF9800"));
                             TextReactingPoint.Text = GetString(Resource.String.Lbl_Earn) + " " + setting.ReactionPoint + " " + GetString(Resource.String.Lbl_ByReactingAnyPost);

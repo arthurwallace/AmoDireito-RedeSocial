@@ -7,11 +7,13 @@ using AFollestad.MaterialDialogs;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Text;
+using Android.Util;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
@@ -575,27 +577,59 @@ namespace WoWonder.Activities.Articles
 
                     TxtTitle.Text = Methods.FunString.DecodeString(ArticleData.Title); 
                     TxtViews.Text = ArticleData.View + " " + GetText(Resource.String.Lbl_Views);
-                     
-                    string style = AppSettings.SetTabDarkTheme ? "<style type='text/css'>body{color: #fff; background-color: #282828;}</style>" : "<style type='text/css'>body{color: #444; background-color: #FFFAFA;}</style>";
 
-                    var content = Html.FromHtml(ArticleData.Content, FromHtmlOptions.ModeCompact).ToString();
+                    string style = AppSettings.SetTabDarkTheme ? "<style type='text/css'>body{color: #fff; background-color: #282828;}</style>" : "<style type='text/css'>body{color: #444; background-color: #FFFAFA;}</style>";
+                    string imageFullWidthStyle = "<style>img{display: inline;height: auto;max-width: 100%;}</style>";
+                      
+                    string content;
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
+                    {
+                        content = Html.FromHtml(ArticleData.Content, FromHtmlOptions.ModeCompact).ToString();
+                    }
+                    else
+                    {
+                        // This method is deprecated but need to use for old os devices
+                        #pragma warning disable CS0618 // Type or member is obsolete
+                        content = Html.FromHtml(ArticleData.Content).ToString();
+                        #pragma warning restore CS0618 // Type or member is obsolete
+                    }
+
+                    //string content = Html.FromHtml(ArticleData.Content, FromHtmlOptions.ModeCompact).ToString();
                     DataWebHtml = "<!DOCTYPE html>";
-                    DataWebHtml += "<head><title></title>"+ style + "</head>";
+                    DataWebHtml += "<head><title></title>" + style + imageFullWidthStyle +"</head>";
                     DataWebHtml += "<body>" + content + "</body>";
                     DataWebHtml += "</html>";
-
+                    // <meta name='viewport' content='width=device-width, user-scalable=no' />
                     TxtHtml.SetWebViewClient(new MyWebViewClient(this));
                     TxtHtml.Settings.LoadsImagesAutomatically = true;
                     TxtHtml.Settings.JavaScriptEnabled = true;
                     TxtHtml.Settings.JavaScriptCanOpenWindowsAutomatically = true;
-                    //TxtHtml.Settings.SetLayoutAlgorithm(WebSettings.LayoutAlgorithm.NarrowColumns);
+                    TxtHtml.Settings.SetLayoutAlgorithm(WebSettings.LayoutAlgorithm.NarrowColumns);
                     TxtHtml.Settings.DomStorageEnabled = true;
                     TxtHtml.Settings.AllowFileAccess = true;
                     TxtHtml.Settings.DefaultTextEncodingName = "utf-8";
 
+                    TxtHtml.Settings.UseWideViewPort=(true);
+                    TxtHtml.Settings.LoadWithOverviewMode=(true);
+
+                    TxtHtml.Settings.SetSupportZoom(false);
+                    TxtHtml.Settings.BuiltInZoomControls=(false);
+                    TxtHtml.Settings.DisplayZoomControls=(false);
+                    
+                    int fontSize = (int)TypedValue.ApplyDimension(ComplexUnitType.Sp, 18, Resources.DisplayMetrics); 
+                    TxtHtml.Settings.DefaultFontSize = fontSize;
+                     
                     TxtHtml.LoadDataWithBaseURL(null, DataWebHtml, "text/html", "UTF-8", null);
 
-                    TxtTime.Text = Methods.Time.TimeAgo(Convert.ToInt32(ArticleData.Posted));
+                    bool success = int.TryParse(ArticleData.Posted, out var number);
+                    if (success)
+                    {
+                        TxtTime.Text = Methods.Time.TimeAgo(Convert.ToInt32(number));
+                    }
+                    else
+                    {
+                        TxtTime.Text = ArticleData.Posted;
+                    }
                      
                     if (Methods.CheckConnectivity())
                         PollyController.RunRetryPolicyFunction(new List<Func<Task>> { () => RequestsAsync.Article.GetBlogById(ArticlesId) });

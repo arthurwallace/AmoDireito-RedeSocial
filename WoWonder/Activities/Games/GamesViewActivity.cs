@@ -212,10 +212,20 @@ namespace WoWonder.Activities.Games
                     DataObject = JsonConvert.DeserializeObject<GamesDataObject>(Intent.GetStringExtra("ItemObject"));
                     if (DataObject != null)
                     {
-                        var url = "https://www.miniclip.com/games/" + DataObject.GameLink + "/en/webgame.php";
+                        string url;
+                        if (DataObject.GameLink.Contains("www.miniclip.com"))
+                        {
+                            url =  DataObject.GameLink;
+                        }
+                        else
+                            url = "https://www.miniclip.com/games/" + DataObject.GameLink + "/en/webgame.php";
+
                         var frame = "<iframe src='" + url + "' id='iframe-game' name='iframe-game' class='loader-game-frame' width='100%' height='100%' border='0' frameborder='0' scrolling='no' allow='autoplay; fullscreen' allowfullscreen='true' style='border: none; height: -webkit-fill-available; min-height: 600px;'></iframe>";
 
-                        string style = AppSettings.SetTabDarkTheme ? "<style type='text/css'>body{color: #fff; background-color: #444;}</style>" : "<style type='text/css'>body{color: #444; background-color: #fff;}</style>";
+                        string responsive = ".page-container{ display: -webkit-box; display: flex; -webkit-box-orient: vertical; flex-direction: column; padding: 20px; box-sizing: border-box;} .page-container.notification-opened { -webkit-box-orient: horizontal; flex-direction: row; }  .page-container.notification-opened > .notification-arrow { margin-right: 20px; } ";
+
+                        string style = AppSettings.SetTabDarkTheme ? "<style type='text/css'>body{color: #fff; background-color: #444;}" + responsive + "</style>" :
+                            "<style type='text/css'>body{color: #444; background-color: #fff;}" + responsive + "</style>";
 
                         string data = "<!DOCTYPE html>";
                         data += "<head><title></title>" + style +
@@ -235,8 +245,8 @@ namespace WoWonder.Activities.Games
                         HybridView.ScrollbarFadingEnabled = false;
                         HybridView.SetScrollContainer(false);  
 
-                        webSettings.SetSupportZoom(false);
-                        webSettings.BuiltInZoomControls = false;
+                        webSettings.SetSupportZoom(true);
+                        webSettings.BuiltInZoomControls = true;
                         webSettings.DisplayZoomControls = false;
 
                         HybridView.SetWebViewClient(new MyWebViewClient(this));
@@ -251,14 +261,16 @@ namespace WoWonder.Activities.Games
                         webSettings.LoadsImagesAutomatically = true;
                         webSettings.JavaScriptCanOpenWindowsAutomatically = true;
                         webSettings.SetLayoutAlgorithm(WebSettings.LayoutAlgorithm.SingleColumn);
+                         
+                          
                         HybridView.ScrollBarStyle = ScrollbarStyles.InsideOverlay;
                          
-                        string desktopUserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36";
+                        //string desktopUserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36";
                         //string mobileUserAgent = "Mozilla/5.0 (Linux; U; Android 4.4; en-us; Nexus 4 Build/JOP24G) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
 
                         //Choose Mobile/Desktop client. 
-                        webSettings.UserAgentString = desktopUserAgent;
-                         
+                        webSettings.UserAgentString = HybridView.Settings.UserAgentString.Replace("Mobile", "eliboM").Replace("Android", "diordnA");
+
                         //Load url to be rendered on WebView
                         HybridView.LoadDataWithBaseURL(null, data, "text/html", "UTF-8", null);
 
@@ -272,6 +284,21 @@ namespace WoWonder.Activities.Games
                 Console.WriteLine(e);
             }
         }
+
+        public void setDesktopMode(bool enabled)
+        {
+            string newUserAgent;
+            if (enabled)
+            {
+                newUserAgent = HybridView.Settings.UserAgentString.Replace("Mobile", "eliboM").Replace("Android", "diordnA");
+            }
+            else
+            {
+                newUserAgent = HybridView.Settings.UserAgentString.Replace("eliboM", "Mobile").Replace("diordnA", "Android");
+            }
+
+        }
+
 
         private void AddOrRemoveEvent(bool addEvent)
         {

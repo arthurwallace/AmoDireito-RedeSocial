@@ -113,7 +113,7 @@
                     style="@style/EditTextNormalStyle"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:hint="@string/Lbl_Page_URL"
+                    android:hint="@string/Lbl_PageUsername"
                     android:textSize="15sp"
                     android:gravity="start"
                     android:background="@drawable/EditTextStyleOne"

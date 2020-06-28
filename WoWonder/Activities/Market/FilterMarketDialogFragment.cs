@@ -70,7 +70,7 @@ namespace WoWonder.Activities.Market
             try
             {
                 IconBack = view.FindViewById<TextView>(Resource.Id.IconBack);
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconBack, IonIconsFonts.ChevronLeft);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconBack, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronRight : IonIconsFonts.ChevronLeft);
                 IconBack.Click += IconBackOnClick;
 
                 IconDistance = view.FindViewById<TextView>(Resource.Id.IconDistance);

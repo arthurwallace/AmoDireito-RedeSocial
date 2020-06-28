@@ -5,6 +5,14 @@
         Wonder,
         DisLike,
         Like,
-        Reaction
+        ReactionDefault,
+        ReactionSubShine
+    }
+    
+    
+    public enum MoreTheme
+    {
+        Default,
+        BeautyTheme
     }
 }

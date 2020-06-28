@@ -5,15 +5,20 @@ using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
+using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using AndroidHUD;
 using AT.Markushi.UI;
+using Bumptech.Glide;
+using Bumptech.Glide.Request;
 using Com.Theartofdev.Edmodo.Cropper;
 using Java.IO;
 using WoWonder.Helpers.CacheLoaders;
 using WoWonder.Helpers.Controller;
 using WoWonder.Helpers.Utils;
+using WoWonderClient.Classes.Global;
 using WoWonderClient.Requests;
 using Console = System.Console;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
@@ -49,8 +54,8 @@ namespace WoWonder.Payment
                 SetContentView(Resource.Layout.PaymentLocalLayout);
 
                var id = Intent.GetStringExtra("Id") ?? "";
-                Price = Intent.GetStringExtra("Price");
-                PayType = Intent.GetStringExtra("payType"); // membership , Funding , AddFunds ,SendMoney 
+                Price = Intent.GetStringExtra("Price") ?? "";
+                PayType = Intent.GetStringExtra("payType") ?? ""; // membership , Funding , AddFunds ,SendMoney 
 
                 //Get Value And Set Toolbar
                 InitComponent();
@@ -161,11 +166,14 @@ namespace WoWonder.Payment
                     CardCountry.Text = splitText[7]; 
                 }
 
-                var bankName = splitText[0]?.Split(new[] { ">", "</h4>" }, StringSplitOptions.None);
-                if (bankName?.Length > 0)
+                if (splitText != null)
                 {
-                    BankName.Text = bankName[12];
-                    BankName.Visibility = ViewStates.Visible;
+                    var bankName = splitText[0]?.Split(new[] { ">", "</h4>" }, StringSplitOptions.None);
+                    if (bankName?.Length > 0)
+                    {
+                        BankName.Text = bankName[12];
+                        BankName.Visibility = ViewStates.Visible;
+                    }
                 }
             }
             catch (Exception e)
@@ -247,13 +255,25 @@ namespace WoWonder.Payment
                         Toast.MakeText(this, GetText(Resource.String.Lbl_ErrorPleaseSelectImage), ToastLength.Long).Show();
                         return;
                     }
-                     
+
+                    //Show a progress
+                    AndHUD.Shared.Show(this, GetText(Resource.String.Lbl_Loading));
+
                     var (apiStatus, respond) = await RequestsAsync.Global.UploadBankRecipeAsync(PayType, Price, "Pay the card " + Price, PathImage);
                     if (apiStatus == 200)
                     {
                         Toast.MakeText(this, GetText(Resource.String.Lbl_YourWasReceiptSuccessfullyUploaded), ToastLength.Long).Show(); 
                     }
-                    else Methods.DisplayReportResult(this, respond);
+                    else
+                    {
+                        if (respond is ErrorObject error)
+                        {
+                            var errorText = error.Error.ErrorText;
+                            //Show a Error 
+                            AndHUD.Shared.ShowError(this, errorText, MaskType.Clear, TimeSpan.FromSeconds(2));
+                        }
+                        //Methods.DisplayReportResult(this, respond);
+                    }
                 }
                 else
                 {
@@ -262,6 +282,7 @@ namespace WoWonder.Payment
             }
             catch (Exception exception)
             {
+                AndHUD.Shared.Dismiss(this);
                 Console.WriteLine(exception);
             }
         }
@@ -301,8 +322,9 @@ namespace WoWonder.Payment
                             {
                                 PathImage = resultPathImage;
 
-                                var file = Uri.FromFile(new File(result.Uri.Path)); 
-                                GlideImageLoader.LoadImage(this, file.Path, Image, ImageStyle.CenterCrop, ImagePlaceholders.Drawable); 
+                                File file2 = new File(PathImage);
+                                var photoUri = FileProvider.GetUriForFile(this, PackageName + ".fileprovider", file2);
+                                Glide.With(this).Load(photoUri).Apply(new RequestOptions().CenterCrop()).Into(Image); 
                             }
                         }
                         else

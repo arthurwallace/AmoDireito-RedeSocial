@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.amoDireito.RedeSocial" android:installLocation="preferExternal" android:versionCode="2" android:versionName="2.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.amoDireito.RedeSocial" android:installLocation="preferExternal" android:versionCode="600008" android:versionName="6.8">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
 	<uses-feature android:name="android.hardware.camera" />
 	<uses-feature android:name="android.hardware.camera.autofocus" />
@@ -36,7 +36,7 @@
 	<uses-permission android:name="com.amoDireito.RedeSocial.permission.C2D_MESSAGE" />
 	<!-- Allow the application to access Google web-based services. -->
 	<permission android:name="com.amoDireito.RedeSocial.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
-	<application android:name=".MainApplication" android:allowBackup="false" android:label="Amo Direito - Rede Social" android:largeHeap="true" android:hardwareAccelerated="true" android:requestLegacyExternalStorage="true" android:supportsRtl="@string/Is_arabic" android:icon="@mipmap/icon" android:roundIcon="@mipmap/icon_round" android:theme="@style/MyTheme" tools:replace="android:icon, android:label, android:theme, android:name, android:allowBackup, android:supportsRtl">
+	<application android:name=".MainApplication" android:allowBackup="false" android:label="Amo Direito" android:largeHeap="true" android:hardwareAccelerated="true" android:requestLegacyExternalStorage="true" android:supportsRtl="@bool/Is_arabic" android:icon="@mipmap/icon" android:roundIcon="@mipmap/icon_round" android:theme="@style/MyTheme" tools:replace="android:icon, android:label, android:theme, android:name, android:allowBackup, android:supportsRtl">
 		<!--Google Maps /Places  API Key-->
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="@string/google_key" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
@@ -53,12 +53,12 @@
 			</intent-filter>
 		</receiver>
 		<!--Enables the Google Payment API-->
-		<meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true" />
-		<receiver android:name="com.google.android.gms.wallet.EnableWalletOptimizationReceiver" android:exported="false">
-			<intent-filter>
-				<action android:name="com.google.android.gms.wallet.ENABLE_WALLET_OPTIMIZATION" />
-			</intent-filter>
-		</receiver>
+		<!--<meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true" />
+    <receiver android:name="com.google.android.gms.wallet.EnableWalletOptimizationReceiver" android:exported="false">
+      <intent-filter>
+        <action android:name="com.google.android.gms.wallet.ENABLE_WALLET_OPTIMIZATION" />
+      </intent-filter>
+    </receiver>-->
 		<!-- Facebook login / API Key -->
 		<uses-library android:name="org.apache.http.legacy" android:required="false" />
 		<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />

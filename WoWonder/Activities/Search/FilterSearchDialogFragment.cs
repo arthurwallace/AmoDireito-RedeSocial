@@ -144,13 +144,12 @@ namespace WoWonder.Activities.Search
 
                 BtnApply = view.FindViewById<Button>(Resource.Id.ApplyButton);
 
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconBack, IonIconsFonts.ChevronLeft);
-
-
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, LocationMoreIcon, IonIconsFonts.ChevronRight);
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, VerifiedMoreIcon, IonIconsFonts.ChevronRight);
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, StatusMoreIcon, IonIconsFonts.ChevronRight);
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, ProfilePictureMoreIcon, IonIconsFonts.ChevronRight);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconBack, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronRight : IonIconsFonts.ChevronLeft);
+                 
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, LocationMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, VerifiedMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, StatusMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, ProfilePictureMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
 
             }
             catch (Exception e)

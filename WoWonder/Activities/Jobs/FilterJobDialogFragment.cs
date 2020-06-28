@@ -110,11 +110,11 @@ namespace WoWonder.Activities.Jobs
                 BtnApply = view.FindViewById<Button>(Resource.Id.ApplyButton);
                  
                 FontUtils.SetTextViewIcon(FontsIconFrameWork.FontAwesomeLight, IconDistance, FontAwesomeIcon.StreetView);
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconBack, IonIconsFonts.ChevronLeft);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconBack, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronRight : IonIconsFonts.ChevronLeft);
                 FontUtils.SetTextViewIcon(FontsIconFrameWork.FontAwesomeBrands, IconCategories, FontAwesomeIcon.Buromobelexperte);
                 FontUtils.SetTextViewIcon(FontsIconFrameWork.FontAwesomeLight, IconJobType, FontAwesomeIcon.Briefcase);
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, JobTypeMoreIcon, IonIconsFonts.ChevronRight);
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, CategoriesMoreIcon, IonIconsFonts.ChevronRight);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, JobTypeMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, CategoriesMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
 
                 if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
                     DistanceBar.SetProgress(string.IsNullOrEmpty(UserDetails.FilterJobLocation) ? 300 : int.Parse(UserDetails.FilterJobLocation), true);

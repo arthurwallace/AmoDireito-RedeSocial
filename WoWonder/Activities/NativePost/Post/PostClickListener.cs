@@ -313,6 +313,7 @@ namespace WoWonder.Activities.NativePost.Post
                                 try
                                 {
                                     item.Boosted = actionsObject.Code.ToString();
+                                    item.IsPostBoosted = actionsObject.Code.ToString();
 
                                     var adapterGlobal = WRecyclerView.GetInstance()?.NativeFeedAdapter;
                                     var dataGlobal = adapterGlobal?.ListDiffer?.Where(a => a.PostData?.Id == item.PostId).ToList();
@@ -321,7 +322,8 @@ namespace WoWonder.Activities.NativePost.Post
                                         foreach (var dataClass in from dataClass in dataGlobal let index = adapterGlobal.ListDiffer.IndexOf(dataClass) where index > -1 select dataClass)
                                         {
                                             dataClass.PostData.Boosted = actionsObject.Code.ToString();
-                                            adapterGlobal.NotifyItemChanged(adapterGlobal.ListDiffer.IndexOf(dataClass));
+                                            dataClass.PostData.IsPostBoosted = actionsObject.Code.ToString();
+                                            adapterGlobal.NotifyItemChanged(adapterGlobal.ListDiffer.IndexOf(dataClass) , "BoostedPost");
                                         }
 
                                         var checkTextSection = dataGlobal.FirstOrDefault(w => w.TypeView == PostModelType.PromotePost);
@@ -356,7 +358,8 @@ namespace WoWonder.Activities.NativePost.Post
                                         foreach (var dataClass in from dataClass in data let index = adapter.ListDiffer.IndexOf(dataClass) where index > -1 select dataClass)
                                         {
                                             dataClass.PostData.Boosted = actionsObject.Code.ToString();
-                                            adapter.NotifyItemChanged(adapter.ListDiffer.IndexOf(dataClass));
+                                            dataClass.PostData.IsPostBoosted = actionsObject.Code.ToString();
+                                            adapter.NotifyItemChanged(adapter.ListDiffer.IndexOf(dataClass), "BoostedPost");
                                         }
 
                                         var checkTextSection = data.FirstOrDefault(w => w.TypeView == PostModelType.PromotePost);
@@ -1008,7 +1011,7 @@ namespace WoWonder.Activities.NativePost.Post
         {
             try
             {
-                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                 {
                     if (item.NewsFeedClass.Reaction.Count > 0)
                     {

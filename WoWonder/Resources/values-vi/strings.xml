@@ -3,7 +3,7 @@
   <!--Application.Context.GetText(Resource.String.text)-->
 
   <!--supportsRtl-->
-  <string name="Is_arabic">false</string>
+  <bool name="Is_arabic">false</bool>
   <!--===============================================================-->
 
   <!--Range seeker-->

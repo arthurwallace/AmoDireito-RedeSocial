@@ -209,7 +209,7 @@ namespace WoWonder.Activities.NativePost.Extra
 
                 if (SecondReactionButton != null)
                 {
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction || AppSettings.PostButton == PostButtonSystem.Like)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine || AppSettings.PostButton == PostButtonSystem.Like)
                     {
                         MainSectionButton.WeightSum = 3;
                         SecondReactionLinearLayout.Visibility = ViewStates.Gone;
@@ -308,7 +308,8 @@ namespace WoWonder.Activities.NativePost.Extra
                     {
                         switch (AppSettings.PostButton)
                         {
-                            case PostButtonSystem.Reaction:
+                            case PostButtonSystem.ReactionDefault:
+                            case PostButtonSystem.ReactionSubShine:
                             case PostButtonSystem.Like:
                                 MainSectionButton.WeightSum = 3;
                                 SecondReactionButton.Visibility = ViewStates.Gone;
@@ -416,7 +417,7 @@ namespace WoWonder.Activities.NativePost.Extra
 
                     }
 
-                    if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                    if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                     {
                         PostObject.Reaction ??= new WoWonderClient.Classes.Posts.Reaction();
 
@@ -641,7 +642,7 @@ namespace WoWonder.Activities.NativePost.Extra
         public bool OnLongClick(View v)
         {
             //add event if System = ReactButton 
-            if (AppSettings.PostButton == PostButtonSystem.Reaction)
+            if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
             {
                 if (LikeButton.Id == v.Id)
                     LikeButton.LongClickDialog(new GlobalClickEventArgs() { NewsFeedClass = PostObject, View = MainView }, null);

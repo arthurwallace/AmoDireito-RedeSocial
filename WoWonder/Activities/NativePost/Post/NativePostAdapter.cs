@@ -568,6 +568,15 @@ namespace WoWonder.Activities.NativePost.Post
                                 break;
                         }
                     }
+                    else if (payloads[0].ToString() == "BoostedPost")
+                    {
+                        switch (viewHolder)
+                        {
+                            case AdapterHolders.PromoteHolder holder:
+                                NotifyItemChanged(position);
+                                break; 
+                        }
+                    }
                     else
                     {
                         base.OnBindViewHolder(viewHolder, position, payloads);
@@ -596,6 +605,15 @@ namespace WoWonder.Activities.NativePost.Post
                 {
                     case (int)PostModelType.PromotePost:
                         {
+                            if (!(viewHolder is AdapterHolders.PromoteHolder holder))
+                                return;
+
+                            bool isPromoted = item.PostData.IsPostBoosted == "1" || item.PostData.SharedInfo.SharedInfoClass != null && item.PostData.SharedInfo.SharedInfoClass?.IsPostBoosted == "1";
+                            if (!isPromoted)
+                            {
+                                holder.PromoteLayout.Visibility = ViewStates.Gone;
+                            }
+
                             break;
                         }
                     case (int)PostModelType.HeaderPost:
@@ -707,7 +725,7 @@ namespace WoWonder.Activities.NativePost.Post
 
                             if (holder.LikeCount != null)
                             {
-                                if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                                if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                                     holder.LikeCount.Text = item.PostData.PostLikes;
                                 else
                                     holder.LikeCount.Text = item.PostData.PostLikes + " " + ActivityContext.GetString(Resource.String.Btn_Likes);
@@ -722,7 +740,7 @@ namespace WoWonder.Activities.NativePost.Post
                             if (!(viewHolder is AdapterHolders.PostBottomSectionViewHolder holder))
                                 return;
 
-                            if (AppSettings.PostButton == PostButtonSystem.Reaction)
+                            if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                             {
                                 item.PostData.Reaction ??= new WoWonderClient.Classes.Posts.Reaction();
 
@@ -1863,8 +1881,7 @@ namespace WoWonder.Activities.NativePost.Post
                 if (!(viewHolder is CommentAdapterViewHolder holder))
                     return;
 
-                if (AppSettings.FlowDirectionRightToLeft)
-                    holder.BubbleLayout.LayoutDirection = Android.Views.LayoutDirection.Rtl;
+                
 
                 if (!string.IsNullOrEmpty(item.Text) || !string.IsNullOrWhiteSpace(item.Text))
                 {

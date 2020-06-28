@@ -19,6 +19,7 @@ using WoWonder.Activities.Album.Adapters;
 using WoWonder.Helpers.Controller;
 using WoWonder.Helpers.Utils;
 using WoWonderClient.Classes.Album;
+using WoWonderClient.Classes.Global;
 using WoWonderClient.Classes.Posts;
 using WoWonderClient.Requests;
 using Console = System.Console;
@@ -337,7 +338,7 @@ namespace WoWonder.Activities.Album
                         {
                             if (result.Data.PhotoAlbum.Count > 0)
                             {
-                                AndHUD.Shared.ShowSuccess(this);
+                                AndHUD.Shared.ShowSuccess(this, "" , MaskType.Clear, TimeSpan.FromSeconds(2));
 
                                 //AlbumItem >> PostDataObject  
                                 Intent returnIntent = new Intent();
@@ -348,9 +349,16 @@ namespace WoWonder.Activities.Album
                         } 
                     }
                 }
-                else Methods.DisplayReportResult(this, respond);
-
-                AndHUD.Shared.Dismiss(this);
+                else
+                {
+                    if (respond is ErrorObject error)
+                    {
+                        var errorText = error.Error.ErrorText;
+                        //Show a Error 
+                        AndHUD.Shared.ShowError(this, errorText, MaskType.Clear, TimeSpan.FromSeconds(2));
+                    }
+                    //Methods.DisplayReportResult(this, respond);
+                } 
             }
             catch (Exception exception)
             {

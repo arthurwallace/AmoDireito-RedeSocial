@@ -47,7 +47,7 @@ namespace WoWonder.Activities.NativePost.Extra
 
         public void PreparePostPrevBottom(PostDataObject item)
         {
-            if (AppSettings.PostButton == PostButtonSystem.Reaction)
+            if (AppSettings.PostButton == PostButtonSystem.ReactionDefault || AppSettings.PostButton == PostButtonSystem.ReactionSubShine)
                 item.PostLikes = item.Reaction?.Count == null ? "0" + " " + MainContext.GetString(Resource.String.Btn_Likes) : item.Reaction?.Count + " " + MainContext.GetString(Resource.String.Btn_Likes);
             else
                 item.PostLikes = Methods.FunString.FormatPriceValue(int.Parse(item.PostLikes));

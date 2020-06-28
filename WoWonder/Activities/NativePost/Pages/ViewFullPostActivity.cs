@@ -286,6 +286,8 @@ namespace WoWonder.Activities.NativePost.Pages
 
                                     var combine = new FeedCombiner(data, MAdapter.ListDiffer, this);
                                     combine.CombineDefaultPostSections();
+
+                                    MAdapter.NotifyDataSetChanged();  
                                 }
                                 catch (Exception e)
                                 {
@@ -330,6 +332,7 @@ namespace WoWonder.Activities.NativePost.Pages
                     MainRecyclerView.Visibility = ViewStates.Visible;
                     CommentsRecyclerView.Visibility = ViewStates.Visible;
                     EmptyStateLayout.Visibility = ViewStates.Gone;
+
                 }
                 else
                 {

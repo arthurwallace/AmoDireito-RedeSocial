@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,7 +28,7 @@
         <ScrollView
             android:id="@+id/SCROLLER_ID"
             android:layout_width="match_parent"
-            android:layout_height="92dp"
+            android:layout_height="wrap_content"
             android:scrollbars="vertical"
             android:gravity="bottom"
             android:foregroundGravity="bottom"
@@ -294,7 +294,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
-                    android:textSize="14sp"
+                    android:textSize="10sp"
                     android:textColor="@color/textIcon"
                     android:text="@string/Lbl_Share"
                     android:layout_weight="1"

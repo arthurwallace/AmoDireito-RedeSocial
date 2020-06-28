@@ -116,8 +116,8 @@ namespace WoWonder.Activities.NearBy
                 TxtRelationship = view.FindViewById<TextView>(Resource.Id.textRelationship);
                 RelationshipMoreIcon = view.FindViewById<TextView>(Resource.Id.RelationshipMoreIcon);
 
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconBack, IonIconsFonts.ChevronLeft);
-                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, RelationshipMoreIcon, IonIconsFonts.ChevronRight);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, IconBack, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronRight : IonIconsFonts.ChevronLeft);
+                FontUtils.SetTextViewIcon(FontsIconFrameWork.IonIcons, RelationshipMoreIcon, AppSettings.FlowDirectionRightToLeft ? IonIconsFonts.ChevronLeft : IonIconsFonts.ChevronRight);
 
                 DistanceBar.Max = 300;
                 DistanceBar.SetOnSeekBarChangeListener(this);
@@ -288,10 +288,26 @@ namespace WoWonder.Activities.NearBy
         {
             try
             {
+                var dbDatabase = new SqLiteDatabase();
+                var newSettingsFilter = new DataTables.NearByFilterTb
+                {
+                    DistanceValue = 0,
+                    Gender = "all",
+                    Status = 2,
+                    Relationship = "5",
+                };
+                dbDatabase.InsertOrUpdate_NearByFilter(newSettingsFilter);
+                dbDatabase.Dispose();
+
                 Gender = "all";
                 DistanceCount = 0;
                 Status = 2;
                 RelationshipId = "5";
+
+                UserDetails.NearByGender = Gender;
+                UserDetails.NearByDistanceCount = DistanceCount.ToString();
+                UserDetails.NearByStatus = Status.ToString();
+                UserDetails.NearByRelationship = RelationshipId;
 
                 //////////////////////////// Gender //////////////////////////////
 
@@ -318,9 +334,34 @@ namespace WoWonder.Activities.NearBy
                 ButtonOffline.SetBackgroundResource(Resource.Drawable.follow_button_profile_friends);
                 ButtonOffline.SetTextColor(AppSettings.SetTabDarkTheme ? Color.ParseColor("#ffffff") : Color.ParseColor("#444444"));
 
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
+                    DistanceBar.SetProgress(300, true);
+                else  // For API < 24 
+                    DistanceBar.Progress = 300;
 
                 TxtDistanceCount.Text = DistanceCount + " " + GetText(Resource.String.Lbl_km);
-                DistanceBar.Progress = DistanceCount;
+
+                switch (RelationshipId)
+                {
+                    case "5":
+                        TxtRelationship.Text = GetText(Resource.String.Lbl_All);
+                        break;
+                    case "1":
+                        TxtRelationship.Text = GetText(Resource.String.Lbl_Single);
+                        break;
+                    case "2":
+                        TxtRelationship.Text = GetText(Resource.String.Lbl_InRelationship);
+                        break;
+                    case "3":
+                        TxtRelationship.Text = GetText(Resource.String.Lbl_Married);
+                        break;
+                    case "4":
+                        TxtRelationship.Text = GetText(Resource.String.Lbl_Engaged);
+                        break;
+                    default:
+                        TxtRelationship.Text = GetText(Resource.String.Lbl_All);
+                        break;
+                }
             }
             catch (Exception exception)
             {
@@ -495,14 +536,14 @@ namespace WoWonder.Activities.NearBy
                     }
 
                     GenderAdapter.NotifyDataSetChanged();
-                     
+
                     TxtDistanceCount.Text = DistanceCount + " " + GetText(Resource.String.Lbl_km);
-                  
+
                     if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
                         DistanceBar.SetProgress(DistanceCount == 0 ? 300 : DistanceCount, true);
                     else  // For API < 24 
                         DistanceBar.Progress = DistanceCount == 0 ? 300 : DistanceCount;
-                      
+
                     //////////////////////////// Status //////////////////////////////
                     //Select Status >> Both (2)
                     //Select Status >> Online (1)
@@ -587,11 +628,17 @@ namespace WoWonder.Activities.NearBy
                     RelationshipId = "5";
 
                     //////////////////////////// Gender //////////////////////////////
-                    var check = GenderAdapter.GenderList.FirstOrDefault(a => a.GenderId == "all");
-                    if (check != null)
+
+                    var check1 = GenderAdapter.GenderList.Where(a => a.GenderSelect).ToList();
+                    if (check1.Count > 0)
+                        foreach (var all in check1)
+                            all.GenderSelect = false;
+
+                    var check2 = GenderAdapter.GenderList.FirstOrDefault(a => a.GenderId == "all");
+                    if (check2 != null)
                     {
-                        check.GenderSelect = true;
-                        Gender = check.GenderId;
+                        check2.GenderSelect = true;
+                        Gender = check2.GenderId;
 
                         GenderAdapter.NotifyDataSetChanged();
                     }
@@ -605,14 +652,14 @@ namespace WoWonder.Activities.NearBy
 
                     ButtonOffline.SetBackgroundResource(Resource.Drawable.follow_button_profile_friends);
                     ButtonOffline.SetTextColor(AppSettings.SetTabDarkTheme ? Color.ParseColor("#ffffff") : Color.ParseColor("#444444"));
-                     
+
                     if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
                         DistanceBar.SetProgress(300, true);
                     else  // For API < 24 
                         DistanceBar.Progress = 300;
-                     
+
                     TxtDistanceCount.Text = DistanceCount + " " + GetText(Resource.String.Lbl_km);
-                     
+
                     switch (RelationshipId)
                     {
                         case "5":

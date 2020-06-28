@@ -376,7 +376,7 @@ namespace WoWonder.Activities.Communities.Groups
                         if (result.GroupData != null)
                         {
                             var item = result.GroupData;
-                            AndHUD.Shared.ShowSuccess(this);
+                            AndHUD.Shared.ShowSuccess(this, "" , MaskType.Clear, TimeSpan.FromSeconds(2));
 
                             Intent returnIntent = new Intent();
                             returnIntent.PutExtra("groupItem", JsonConvert.SerializeObject(item));
@@ -394,10 +394,7 @@ namespace WoWonder.Activities.Communities.Groups
                         AndHUD.Shared.ShowError(this, errorText, MaskType.Clear, TimeSpan.FromSeconds(2));
                     }
                     //Methods.DisplayReportResult(this, respond);
-                }
-
-                AndHUD.Shared.Dismiss(this);
-            
+                } 
             }
             catch (Exception exception)
             {

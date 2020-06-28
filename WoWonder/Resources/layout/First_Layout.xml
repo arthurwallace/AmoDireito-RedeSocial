@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +7,7 @@
 	android:background="@drawable/loginbackground"
 	android:id="@+id/Layout_Base"
 	>
-  
+   
     <ImageView
         android:id="@+id/Logoplace"
         android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="40dp"
         android:src="@drawable/logoHorizontal"
-         />
+		/>
     <LinearLayout
         android:id="@+id/mainloginliner"
         android:layout_width="match_parent"
@@ -28,8 +28,8 @@
         android:layout_marginBottom="40dp"
         android:layout_centerInParent="false"
         android:layout_alignParentBottom="true">
-       
-       
+  
+		
         <Button
             android:text="@string/Lbl_Register"
             android:layout_width="match_parent"

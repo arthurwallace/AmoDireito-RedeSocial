@@ -209,7 +209,8 @@ namespace WoWonder.Activities.Comment
                 };
 
                 //Load data same as comment adapter
-                CommentActivity.GetInstance()?.CommentsAdapter?.LoadCommentData(CommentObject, holder);
+                var CommentsAdapter = new CommentAdapter(this , null , "" , "");
+                CommentsAdapter?.LoadCommentData(CommentObject, holder);
             }
             catch (Exception e)
             {
@@ -439,7 +440,7 @@ namespace WoWonder.Activities.Comment
                             } 
                         }
                     }
-                    else Methods.DisplayReportResult(this, respond);
+                    //else Methods.DisplayReportResult(this, respond);
 
                     //Hide keyboard
                     TxtComment.Text = "";

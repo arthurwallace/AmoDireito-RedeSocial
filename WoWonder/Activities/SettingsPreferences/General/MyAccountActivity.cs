@@ -289,17 +289,25 @@ namespace WoWonder.Activities.SettingsPreferences.General
                     //Show a progress
                     AndHUD.Shared.Show(this, GetText(Resource.String.Lbl_Loading));
                      
-                    DateTime date = DateTime.Parse(TxtBirthday.Text);
-                    string newFormat = date.Day + "-" + date.Month + "-" + date.Year;
-
                     var dictionary = new Dictionary<string, string>
                     {
                         {"username", TxtUsername.Text.Replace(" ","")},
                         {"email", TxtEmail.Text},
-                        {"birthday", newFormat},
                         {"gender", GenderStatus}
                     };
 
+                    string newFormat = "";
+                    if (!string.IsNullOrEmpty(TxtBirthday.Text))
+                    {
+                        var date = TxtBirthday.Text.Split(new char[] {'-' , '/' });
+                        if (date.Length > 0)
+                        {
+                            newFormat = date[0] + "-" + date[1] + "-" + date[2];
+                        }
+                         
+                        dictionary.Add("birthday", newFormat);
+                    }
+                    
                     var (apiStatus, respond) = await WoWonderClient.Requests.RequestsAsync.Global.Update_User_Data(dictionary);
                     if (apiStatus == 200)
                     {
@@ -314,7 +322,10 @@ namespace WoWonder.Activities.SettingsPreferences.General
                                 {
                                     local.Username = TxtUsername.Text.Replace(" ", "");
                                     local.Email = TxtEmail.Text;
-                                    local.Birthday = newFormat;
+
+                                    if (!string.IsNullOrEmpty(newFormat))
+                                        local.Birthday = newFormat;
+
                                     local.Gender = GenderStatus;
                                     local.GenderText = TxtGender.Text;
                                      
@@ -332,9 +343,16 @@ namespace WoWonder.Activities.SettingsPreferences.General
                             }
                         }
                     }
-                    else Methods.DisplayReportResult(this, respond);
-
-                    AndHUD.Shared.Dismiss(this);
+                    else
+                    {
+                        if (respond is ErrorObject error)
+                        {
+                            var errorText = error.Error.ErrorText;
+                            //Show a Error 
+                            AndHUD.Shared.ShowError(this, errorText, MaskType.Clear, TimeSpan.FromSeconds(2));
+                        }
+                        //Methods.DisplayReportResult(this, respond);
+                    }
                 }
                 else
                 {
@@ -487,7 +505,7 @@ namespace WoWonder.Activities.SettingsPreferences.General
                 {
                     var frag = PopupDialogController.DatePickerFragment.NewInstance(delegate (DateTime time)
                     {
-                        TxtBirthday.Text = time.ToShortDateString();
+                        TxtBirthday.Text = time.Date.ToString("yy-MM-dd");
                     });
                     frag.Show(SupportFragmentManager, PopupDialogController.DatePickerFragment.Tag);
                 }

@@ -7,7 +7,7 @@
         Example. Movies & Animation >> Movies &amp; Animation   -->
 
   <!--supportsRtl-->
-  <string name="Is_arabic">false</string>
+  <bool name="Is_arabic">false</bool>
   <!--===============================================================-->
   <string name="google_app_id">1:33032197338:android:33d3c8c5ea4f23c56381e3</string>
   <!--Range seeker-->
@@ -407,7 +407,7 @@
   <!--Categories Communities Local Custom-->
   <string-array name="Categories_Communities_array">
     <item>Other</item>
-    <item>Carros e veículos</item>
+	  <item>Carros e veículos</item>
     <item>Comedy</item>
     <item>Economics and Trade</item>
     <item>Education</item>
@@ -574,7 +574,7 @@
 
   <!--Fragment-->
   <string name="Lbl_Library">Library</string>
-  <string name="Lbl_Notifications">Notificações</string>
+	<string name="Lbl_Notifications">Notificações</string>
   <string name="Lbl_Trending">Trending</string>
   <string name="Lbl_Search">Search</string>
   <string name="Lbl_Activity">Activity</string>
@@ -1001,17 +1001,17 @@
   <string name="Lbl_upgrade">upgrade</string>
 
   <string-array name="go_pro_plan_1">
-    <item>STAR</item>
-    <item>R$9.90</item>
-    <item>Por Semana</item>
-    <item>#4c7737</item>
+	  <item>STAR</item>
+	  <item>R$9.90</item>
+	  <item>Por Semana</item>
+	  <item>#4c7737</item>
   </string-array>
 
   <string-array name="go_pro_plan_2">
-    <item>Quente</item>
-    <item>R$19.90</item>
-    <item>Per mês</item>
-    <item>#f9b340</item>
+	  <item>Quente</item>
+	  <item>R$19.90</item>
+	  <item>Per mês</item>
+	  <item>#f9b340</item>
   </string-array>
 
   <string-array name="go_pro_plan_3">
@@ -1151,9 +1151,9 @@
   <string name="Lbl_Empty_Activities">No Activities !!</string>
 
   <!-- V2.7 String translate -->
-  <!--===============================================================--> 
-  <string name="Lbl_Light">Claro</string>
-  <string name="Lbl_Dark">Noturno</string>
+  <!--===============================================================-->
+	<string name="Lbl_Light">Claro</string>
+	<string name="Lbl_Dark">Escuro</string>
   <string name="Lbl_SetByBattery">Set by Battery Saver</string>
   <string name="Lbl_ErrorFileNotSupported">This file not supported on the server , please select another file</string>
   <string name="Lbl_EarnUpTo">Earn up to</string>
@@ -1201,18 +1201,18 @@
 
   <!-- V2.8 String translate -->
   <!--===============================================================-->
-  <string name="Lbl_Summary_OnlineUsers">Mostrar quando os usuários estiverem online</string>
-  <string name="Lbl_Display">Display</string>
-  <string name="Lbl_ShowOnlineUsers">Mostrar usuários online</string>
-  <string name="Lbl_MyInformation">Minhas informações</string>
-  <string name="Lbl_DownloadMyInformation">Baixar minhas informações</string>
-  <string name="Lbl_MyInformation_SubText">Por favor, escolha qual informação você deseja baixar</string>
-  <string name="Lbl_YourFileIsReady">Seu arquivo está pronto para download</string>
-  <string name="Lbl_YourFileIsDownloaded">Seu arquivo foi baixado com sucesso!</string>
-  <string name="Lbl_DownloadAndView">Baixar &amp; Ver</string>
-  <string name="Lbl_Admin">Admin</string>
-  <string name="Lbl_MyFriends">Meus amigos</string>
-  <string name="Lbl_Anonymous">Anônimo</string>
+	<string name="Lbl_Summary_OnlineUsers">Mostrar quando os usuários estiverem online</string>
+	<string name="Lbl_Display">Display</string>
+	<string name="Lbl_ShowOnlineUsers">Mostrar usuários online</string>
+	<string name="Lbl_MyInformation">Minhas informações</string>
+	<string name="Lbl_DownloadMyInformation">Baixar minhas informações</string>
+	<string name="Lbl_MyInformation_SubText">Por favor, escolha qual informação você deseja baixar</string>
+	<string name="Lbl_YourFileIsReady">Seu arquivo está pronto para download</string>
+	<string name="Lbl_YourFileIsDownloaded">Seu arquivo foi baixado com sucesso!</string>
+	<string name="Lbl_DownloadAndView">Baixar &amp; Ver</string>
+	<string name="Lbl_Admin">Admin</string>
+	<string name="Lbl_MyFriends">Meus amigos</string>
+	<string name="Lbl_Anonymous">Anônimo</string>
 
   <string name="Lbl_BankTransfer">Bank Transfer</string>
   <string name="Lbl_YourWasReceiptSuccessfullyUploaded">Your Was Receipt Successfully Uploaded</string>
@@ -1244,10 +1244,10 @@
   <string name="Lbl_NoMoreMemories">No more memories found</string>
   <string name="Lbl_Empty_Memories">"Oops! No any memories"</string>
   <string name="Lbl_Friendversaries">Friendversaries</string>
- 
-  <string name="Lbl_Offers">Ofertas</string>
-  <string name="Lbl_NoMoreOffers">Nenhuma oferta para mostrar.</string>
-  <string name="Lbl_Empty_Offers">Ainda não existe nenhuma oferta.</string>
+
+	<string name="Lbl_Offers">Ofertas</string>
+	<string name="Lbl_NoMoreOffers">Nenhuma oferta para mostrar.</string>
+	<string name="Lbl_Empty_Offers">Ainda não existe nenhuma oferta.</string>
   <string name="Lbl_DiscountType">Discount Type</string>
   <string name="Lbl_DiscountItems">Discounted Items and/or Services</string>
   <string name="Lbl_CreateOffers">Create Offers</string>
@@ -1267,17 +1267,17 @@
   <string name="Lbl_OfferSuccessfullyAdded">Offer successfully added</string>
   <string name="Lbl_DeleteOffers">Are you sure that you want to delete this post</string>
 
-  <string name="Lbl_SearchForPosts">Pesquisar posts</string>
+	<string name="Lbl_SearchForPosts">Pesquisar posts</string>
 
-  <string name="Lbl_NoMemoriesDescriptions">Thanks for stopping by. there arent any memories to see today, but we will let you know when we have something to look back on.</string>
-  <string name="Lbl_NoCommentThingsDescriptions">Thanks for stopping by. there arent any common things with users to be displayed for you.</string>
-  <string name="Lbl_NoJobsDescriptions">Desculpe, não existe nenhuma vaga no momento.</string>
-  <string name="Lbl_NoNotifcationsDescriptions">Fique ligado! As notificações das suas atividades aparecerão aqui.</string>
+	<string name="Lbl_NoMemoriesDescriptions">Thanks for stopping by. there arent any memories to see today, but we will let you know when we have something to look back on.</string>
+	<string name="Lbl_NoCommentThingsDescriptions">Thanks for stopping by. there arent any common things with users to be displayed for you.</string>
+	<string name="Lbl_NoJobsDescriptions">Desculpe, não existe nenhuma vaga no momento.</string>
+	<string name="Lbl_NoNotifcationsDescriptions">Fique ligado! As notificações das suas atividades aparecerão aqui.</string>
 
-  <string name="Lbl_Event">Event</string>
-  <string name="Lbl_CreatedNewEvent">Created new event</string>
-  <string name="Lbl_Invited">Convidado</string>
-  <string name="Lbl_Past">Past</string>
+	<string name="Lbl_Event">Event</string>
+	<string name="Lbl_CreatedNewEvent">Created new event</string>
+	<string name="Lbl_Invited">Convidado</string>
+	<string name="Lbl_Past">Past</string>
 
   <string name="Lbl_CreditCard">Credit Card</string>
   <string name="Btn_Continue">Continue</string>
@@ -1317,15 +1317,15 @@
   <string name="Lbl_SorryUserIsAnonymous">Sorry, this user is anonymous</string>
 
   <!--Verification-->
-  <string name="Lbl_YourPhoto">Sua foto</string>
-  <string name="Lbl_Passport">Identidade</string>
-  <string name="Lbl_Please_enter_Messages">Error, Please enter Messages</string>
-  <string name="Lbl_WelcomeTo">Welcome to</string>
-  <string name="Lbl_Please_select_Image_passport">Por favor, escolha uma foto recente sua e da sua identidade.</string>
-  <string name="Lbl_SubmitRequest">Enviar pedido</string>
-  <string name="Lbl_Congratulations_verified">Parabéns! Você está verificado.</string>
-  <string name="Lbl_Please_add_info">Verificação do perfil!</string>
-  <string name="Lbl_Successfully_Verification">Sua solicitação será analisada.</string>
+	<string name="Lbl_YourPhoto">Sua foto</string>
+	<string name="Lbl_Passport">Identidade</string>
+	<string name="Lbl_Please_enter_Messages">Error, Please enter Messages</string>
+	<string name="Lbl_WelcomeTo">Welcome to</string>
+	<string name="Lbl_Please_select_Image_passport">Por favor, escolha uma foto recente sua e da sua identidade.</string>
+	<string name="Lbl_SubmitRequest">Enviar pedido</string>
+	<string name="Lbl_Congratulations_verified">Parabéns! Você está verificado.</string>
+	<string name="Lbl_Please_add_info">Verificação do perfil!</string>
+	<string name="Lbl_Successfully_Verification">Sua solicitação será analisada.</string>
 
   <string name="Lbl_SubCategories">Sub Categories</string>
   <string name="Lbl_NoMorePost">No more post found</string>
@@ -1333,5 +1333,7 @@
   <string name="Lbl_ThereIsNoBalance">There Is No Balance</string>
 	
   <string name="Lbl_PostingAs">Posting as</string>
+  <string name="Lbl_PageUsername">Nome da página</string>
+  <string name="Lbl_GroupUsername">Nome do grupo</string>
 
 </resources>

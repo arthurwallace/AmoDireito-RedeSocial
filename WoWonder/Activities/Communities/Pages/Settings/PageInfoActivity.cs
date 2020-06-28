@@ -310,8 +310,6 @@ namespace WoWonder.Activities.Communities.Pages.Settings
                         }
                         //Methods.DisplayReportResult(this, respond);
                     }
-
-                    AndHUD.Shared.Dismiss(this);
                 }
             }
             catch (Exception exception)
