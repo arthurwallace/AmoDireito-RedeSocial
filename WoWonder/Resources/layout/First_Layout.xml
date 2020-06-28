@@ -1,0 +1,61 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@drawable/loginbackground"
+	android:id="@+id/Layout_Base"
+	>
+  
+    <ImageView
+        android:id="@+id/Logoplace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="40dp"
+        android:src="@drawable/logoHorizontal"
+         />
+    <LinearLayout
+        android:id="@+id/mainloginliner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:layout_centerInParent="false"
+        android:layout_alignParentBottom="true">
+       
+       
+        <Button
+            android:text="@string/Lbl_Register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/RegisterButton"
+            android:background="@xml/button_bg_secound"
+            android:textColor="@color/textLight_color"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp" />
+        <Button
+            android:text="@string/Lbl_Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/LoginButton"
+            android:background="@xml/button_bg"
+            android:textColor="@color/textLight_color"
+            android:layout_marginTop="35dp"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp" /> 
+	    <View 
+			android:layout_height="50dp"
+            android:layout_width="match_parent" />
+    </LinearLayout>
+</RelativeLayout>
